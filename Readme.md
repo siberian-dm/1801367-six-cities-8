@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Дмитрий Воробьев](https://up.htmlacademy.ru/react/8/user/1801367).
-* Наставник: `Неизвестно`.
+* Студент: [Дмитрий Воробьев](https://htmlacademy.ru//profile/id1801367).
+* Наставник: [Артём Рудов](https://htmlacademy.ru/profile/artrudov).
 
 ---
 
