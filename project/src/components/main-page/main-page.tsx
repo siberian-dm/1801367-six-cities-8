@@ -1,20 +1,11 @@
+import { Hotel } from '../../types/hotel';
 import PlaceCard from '../place-card/place-card';
 
 type MainPageProps = {
-  placeCount: number,
-  placeCards: {
-    isPremium: boolean,
-    previewImage: string,
-    price: number,
-    isFavorite: boolean,
-    rating: number,
-    title: string,
-    type: string,
-  }[],
-}
+  hotels: Hotel[];
+};
 
-
-function MainPage({placeCount, placeCards}: MainPageProps): JSX.Element {
+function MainPage({ hotels }: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -44,7 +35,6 @@ function MainPage({placeCount, placeCards}: MainPageProps): JSX.Element {
           </div>
         </div>
       </header>
-
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -87,7 +77,7 @@ function MainPage({placeCount, placeCards}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placeCount} places to stay in Amsterdam</b>
+              <b className="places__found">{hotels.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -104,7 +94,7 @@ function MainPage({placeCount, placeCards}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {placeCards.map((card) => <PlaceCard key={card.title} card={card} />)}
+                {hotels.map((hotel) => <PlaceCard key={hotel.id} hotel={hotel} />)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -116,6 +106,5 @@ function MainPage({placeCount, placeCards}: MainPageProps): JSX.Element {
     </div>
   );
 }
-
 
 export default MainPage;

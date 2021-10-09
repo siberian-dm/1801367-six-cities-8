@@ -332,5 +332,4 @@ function PropertyPage(): JSX.Element {
   );
 }
 
-
 export default PropertyPage;
