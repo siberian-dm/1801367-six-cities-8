@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { Hotel } from '../types/hotel';
 
-function hotelMock() {
+function getHotelMock() {
   return {
     id: faker.datatype.uuid(),
     isPremium: faker.datatype.boolean(),
@@ -28,5 +28,5 @@ function hotelMock() {
 }
 
 export function generateOffers(count: number): Hotel[] {
-  return new Array(count).fill(null).map(() => hotelMock());
+  return new Array(count).fill(null).map(() => getHotelMock());
 }
