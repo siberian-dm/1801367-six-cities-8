@@ -1,11 +1,7 @@
-import { Hotel } from '../../types/hotel';
-import PlaceCard from '../place-card/place-card';
+import OfferList from '../../offer-list/offer-list';
+import { Offers } from '../../../types/hotel';
 
-type MainPageProps = {
-  hotels: Hotel[];
-};
-
-function MainPage({ hotels }: MainPageProps): JSX.Element {
+function Main(props: JSX.IntrinsicAttributes & Offers): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -77,7 +73,7 @@ function MainPage({ hotels }: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{hotels.length} places to stay in Amsterdam</b>
+              <b className="places__found">{props.offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -93,9 +89,7 @@ function MainPage({ hotels }: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {hotels.map((hotel) => <PlaceCard key={hotel.id} hotel={hotel} />)}
-              </div>
+              <OfferList {...props}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -107,4 +101,4 @@ function MainPage({ hotels }: MainPageProps): JSX.Element {
   );
 }
 
-export default MainPage;
+export default Main;

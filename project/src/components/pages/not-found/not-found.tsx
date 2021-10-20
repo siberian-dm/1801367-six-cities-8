@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function NotFoundPage():JSX.Element {
+function NotFound():JSX.Element {
   return (
     <section>
       <header className="header">
@@ -32,4 +32,4 @@ function NotFoundPage():JSX.Element {
   );
 }
 
-export default NotFoundPage;
+export default NotFound;
