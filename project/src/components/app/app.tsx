@@ -23,7 +23,7 @@ function App(props: JSX.IntrinsicAttributes & Offers): JSX.Element {
         </Route>
         <PrivateRoute
           path={AppRoute.Favorites}
-          render={() => <Favorites/>}
+          render={() => <Favorites {...props}/>}
           authorizationStatus={AuthorizationStatus.Auth}
           exact
         />
