@@ -1,5 +1,7 @@
 import classNames from 'classnames';
+import { calculateRating } from '../../utils';
 import { CardType, offerTypes } from '../../const';
+import { Link } from 'react-router-dom';
 import { Offer } from '../../types/hotel';
 
 type OfferCardProps = {
@@ -9,7 +11,7 @@ type OfferCardProps = {
 }
 
 function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Element {
-  const {isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
+  const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
 
   const bookmarkButtonClass = classNames({
     button: true,
@@ -40,14 +42,14 @@ function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Elemen
     <article className={articleClass} onMouseOver={onMouseOver}>
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={divImageClass}>
-        <a href="/">
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image"
             src={previewImage}
             width={cardType === CardType.Favorite ? '150' : '260'}
             height={cardType === CardType.Favorite ? '110' : '200'}
             alt="Place"
           />
-        </a>
+        </Link>
       </div>
       <div className={divInfoClass}>
         <div className="place-card__price-wrapper">
@@ -64,12 +66,12 @@ function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Elemen
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rating / 5 * 100}%`}}></span>
+            <span style={{width: calculateRating(rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{offerTypes[type]}</p>
       </div>
