@@ -7,8 +7,9 @@ import Room from '../pages/room/room';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Offers } from '../../types/hotel';
+import { Reviews } from '../../types/comment';
 
-function App(props: JSX.IntrinsicAttributes & Offers): JSX.Element {
+function App(props: JSX.IntrinsicAttributes & Offers & Reviews): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
@@ -19,7 +20,7 @@ function App(props: JSX.IntrinsicAttributes & Offers): JSX.Element {
           <Login/>
         </Route>
         <Route path={AppRoute.Offer} exact>
-          <Room/>
+          <Room {...props}/>
         </Route>
         <PrivateRoute
           path={AppRoute.Favorites}

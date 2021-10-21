@@ -12,16 +12,31 @@ function getHotelMock(index: number) {
       },
       name: 'Amsterdam',
     },
-    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    description: faker.lorem.sentence(20),
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
-    host: {
-      avatarUrl: 'img/1.png',
-      id: 3,
-      isPro: true,
-      name: 'Angelina',
-    },
+    host: faker.helpers.randomize([
+      {
+        avatarUrl: 'img/avatar-angelina.jpg',
+        id: 2,
+        isPro: faker.datatype.boolean(),
+        name: 'Angelina',
+      },
+      {
+        avatarUrl: 'img/avatar-max.jpg',
+        id: 3,
+        isPro: faker.datatype.boolean(),
+        name: 'Max',
+      },
+    ]),
     id: index,
-    images: ['img/1.png', 'img/2.png'],
+    images: [
+      'img/room.jpg',
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg',
+      'img/studio-01.jpg',
+      'img/apartment-01.jpg',
+    ],
     isFavorite: faker.datatype.boolean(),
     isPremium: faker.datatype.boolean(),
     location: {
@@ -39,7 +54,7 @@ function getHotelMock(index: number) {
     price: faker.datatype.number({min: 80, max: 200}),
     rating: faker.datatype.float({min: 1, max: 5, precision: 0.1}),
     title: faker.helpers.randomize([
-      'Beautiful &amp; luxurious apartment at great location',
+      'Beautiful & luxurious apartment at great location',
       'Wood and stone place',
       'Canal View Prinsengracht',
       'Nice, cozy, warm big bed apartment',

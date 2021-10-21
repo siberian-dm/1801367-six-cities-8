@@ -1,3 +1,5 @@
+import { User } from './comment';
+
 interface Location {
   latitude: number;
   longitude: number;
@@ -9,19 +11,12 @@ interface City {
   name: string;
 }
 
-interface Host {
-  avatarUrl: string;
-  id: number;
-  isPro: boolean;
-  name: string;
-}
-
 export interface Offer {
   bedrooms: number;
   city: City;
   description: string;
   goods: string[];
-  host: Host;
+  host: User;
   id: number;
   images: string[];
   isFavorite: boolean;
