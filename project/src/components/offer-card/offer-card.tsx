@@ -13,30 +13,33 @@ type OfferCardProps = {
 function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Element {
   const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
 
-  const bookmarkButtonClass = classNames({
-    button: true,
-    'place-card__bookmark-button': true,
-    'place-card__bookmark-button--active': isFavorite,
-  });
+  const bookmarkButtonClass = classNames(
+    'place-card__bookmark-button button',
+    {
+      'place-card__bookmark-button--active': isFavorite,
+    });
 
-  const articleClass = classNames({
-    'place-card': true,
-    'cities__place-card': cardType === CardType.CityPlace,
-    'near-places__card': cardType === CardType.NearPlace,
-    'favorites__card': cardType === CardType.Favorite,
-  });
+  const articleClass = classNames(
+    'place-card',
+    {
+      'cities__place-card': cardType === CardType.CityPlace,
+      'near-places__card': cardType === CardType.NearPlace,
+      'favorites__card': cardType === CardType.Favorite,
+    });
 
-  const divImageClass = classNames({
-    'place-card__image-wrapper': true,
-    'cities__image-wrapper': cardType === CardType.CityPlace,
-    'near-places__image-wrapper': cardType === CardType.NearPlace,
-    'favorites__image-wrapper': cardType === CardType.Favorite,
-  });
+  const divImageClass = classNames(
+    'place-card__image-wrapper',
+    {
+      'cities__image-wrapper': cardType === CardType.CityPlace,
+      'near-places__image-wrapper': cardType === CardType.NearPlace,
+      'favorites__image-wrapper': cardType === CardType.Favorite,
+    });
 
-  const divInfoClass = classNames({
-    'place-card__info': true,
-    'favorites__card-info': cardType === CardType.Favorite,
-  });
+  const divInfoClass = classNames(
+    'place-card__info',
+    {
+      'favorites__card-info': cardType === CardType.Favorite,
+    });
 
   return (
     <article className={articleClass} onMouseOver={onMouseOver}>

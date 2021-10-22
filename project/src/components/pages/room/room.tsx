@@ -27,17 +27,17 @@ function Room({ offers, reviews }: RoomProps): JSX.Element {
 
   const {isPremium, images, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
 
-  const bookmarkButtonClass = classNames({
-    button: true,
-    'property__bookmark-button': true,
-    'property__bookmark-button--active': isFavorite,
-  });
+  const bookmarkButtonClass = classNames(
+    'property__bookmark-button button',
+    {
+      'property__bookmark-button--active': isFavorite,
+    });
 
-  const divHostAvatarClass = classNames({
-    'property__avatar-wrapper': true,
-    'user__avatar-wrapper': true,
-    'property__avatar-wrapper--pro': host.isPro,
-  });
+  const divHostAvatarClass = classNames(
+    'property__avatar-wrapper user__avatar-wrapper',
+    {
+      'property__avatar-wrapper--pro': host.isPro,
+    });
 
   return (
     <div className="page">
