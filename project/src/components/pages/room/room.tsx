@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import NotFound from '../not-found/not-found';
+import OfferCard from '../../offer-card/offer-card';
+import ReviewForm from '../../review-form/review-form';
 import ReviewItem from '../../review-item/review-item';
+import { calculateRating, capitalizeString } from '../../../utils';
+import { CardType } from '../../../const';
 import { nanoid } from '@reduxjs/toolkit';
 import { Offer } from '../../../types/hotel';
-import { CardType, offerTypes } from '../../../const';
 import { Review } from '../../../types/comment';
 import { useParams } from 'react-router-dom';
-import OfferCard from '../../offer-card/offer-card';
-import { calculateRating } from '../../../utils';
-import ReviewForm from '../../review-form/review-form';
 
 const MAX_OFFERS = 3;
 
@@ -103,7 +103,7 @@ function Room({ offers, reviews }: RoomProps): JSX.Element {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {offerTypes[type]}
+                  {capitalizeString(type)}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {`${bedrooms} Bedrooms`}

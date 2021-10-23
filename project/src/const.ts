@@ -1,5 +1,3 @@
-import { offerType } from './types/hotel';
-
 export enum AppRoute {
   Login = '/login',
   Root = '/',
@@ -18,10 +16,3 @@ export enum CardType {
   NearPlace = 'NEAR_PLACE',
   Favorite = 'FAVORITE',
 }
-
-export const offerTypes: offerType = {
-  apartment: 'Apartment',
-  room: 'Room',
-  house: 'House',
-  hotel: 'Hotel',
-};

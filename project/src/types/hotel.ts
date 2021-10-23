@@ -33,7 +33,3 @@ export interface Offer {
 export interface Offers {
   offers: Offer[];
 }
-
-export interface offerType {
-  [key: string]: string;
-}
