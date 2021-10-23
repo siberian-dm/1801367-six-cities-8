@@ -5,7 +5,6 @@ import ReviewForm from '../../review-form/review-form';
 import ReviewItem from '../../review-item/review-item';
 import { calculateRating, capitalizeString } from '../../../utils';
 import { CardType } from '../../../const';
-import { nanoid } from '@reduxjs/toolkit';
 import { Offer } from '../../../types/hotel';
 import { Review } from '../../../types/comment';
 import { useParams } from 'react-router-dom';
@@ -74,7 +73,7 @@ function Room({ offers, reviews }: RoomProps): JSX.Element {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {images.map((image) => (
-                <div key={nanoid()} className="property__image-wrapper">
+                <div key={image} className="property__image-wrapper">
                   <img className="property__image" src={image} alt="Studio" />
                 </div>
               ))}
@@ -120,7 +119,7 @@ function Room({ offers, reviews }: RoomProps): JSX.Element {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {goods.map((good) => (
-                    <li key={nanoid()} className="property__inside-item">
+                    <li key={good} className="property__inside-item">
                       {good}
                     </li>
                   ))}
