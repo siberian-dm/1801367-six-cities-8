@@ -1,9 +1,9 @@
-import Favorites from '../pages/favorites/favorites';
-import Login from '../pages/login/login';
-import Main from '../pages/main/main';
-import NotFound from '../pages/not-found/not-found';
-import PrivateRoute from '../private-route/private-route';
-import Room from '../pages/room/room';
+import Favorites from '../views/favorites';
+import Login from '../views/login';
+import Main from '../views/main/main';
+import NotFound from '../views/not-found';
+import PrivateRoute from './private-route';
+import Room from '../views/room/room';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Offers } from '../../types/hotel';

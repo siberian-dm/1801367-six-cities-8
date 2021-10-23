@@ -1,6 +1,6 @@
-import OfferCard from '../offer-card/offer-card';
-import { CardType } from '../../const';
-import { Offer, Offers } from '../../types/hotel';
+import OfferCard from '../../common/offer-card';
+import { CardType } from '../../../const';
+import { Offer, Offers } from '../../../types/hotel';
 import { useState } from 'react';
 
 function OfferList ({ offers }: Offers):JSX.Element {
@@ -16,7 +16,7 @@ function OfferList ({ offers }: Offers):JSX.Element {
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}
-          cardType={CardType.CityPlace}
+          cardType={CardType.Cities}
           offer={offer}
           onMouseOver={handleOfferCardHover(offer)}
         />

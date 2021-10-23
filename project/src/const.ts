@@ -12,9 +12,14 @@ export enum AuthorizationStatus {
 }
 
 export enum CardType {
-  CityPlace,
-  NearPlace,
-  Favorite,
+  Cities = 'cities',
+  NearPlaces = 'near-places',
+  Favorites = 'favorites',
+}
+
+export enum BookmarkButtonType {
+  PlaceCard = 'place-card',
+  Property = 'property',
 }
 
 export enum DateFormat {

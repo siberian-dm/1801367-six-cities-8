@@ -1,6 +1,6 @@
-import { calculateRating, getHumanizeDate } from '../../utils';
-import { DateFormat } from '../../const';
-import { Review } from '../../types/comment';
+import { calculateRating, getHumanizeDate } from '../../../utils';
+import { DateFormat } from '../../../const';
+import { Review } from '../../../types/comment';
 
 type ReviewItemProps = {
   review: Review;

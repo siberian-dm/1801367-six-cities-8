@@ -1,4 +1,4 @@
-import RatingInput from './rating-input';
+import RadioInput from './radio-input';
 import { ChangeEvent, useState } from 'react';
 
 const Ratings = {
@@ -27,7 +27,7 @@ function ReviewForm(): JSX.Element {
       <div className="reviews__rating-form form__rating" onChange={handleRatingInputChange}>
         {Object.entries(Ratings).reverse()
           .map(([value, title]) => (
-            <RatingInput
+            <RadioInput
               key={title}
               value={value}
               title={title}

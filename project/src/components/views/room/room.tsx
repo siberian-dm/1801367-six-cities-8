@@ -1,10 +1,12 @@
+import BookmarkButton from '../../common/bookmark-button';
 import classNames from 'classnames';
-import NotFound from '../not-found/not-found';
-import OfferCard from '../../offer-card/offer-card';
-import ReviewForm from '../../review-form/review-form';
-import ReviewItem from '../../review-item/review-item';
+import Header from '../../common/header';
+import NotFound from '../not-found';
+import OfferCard from '../../common/offer-card';
+import ReviewForm from './review-form';
+import ReviewItem from './review-item';
+import { BookmarkButtonType, CardType } from '../../../const';
 import { calculateRating, capitalizeString } from '../../../utils';
-import { CardType } from '../../../const';
 import { Offer } from '../../../types/hotel';
 import { Review } from '../../../types/comment';
 import { useParams } from 'react-router-dom';
@@ -24,13 +26,7 @@ function Room({ offers, reviews }: RoomProps): JSX.Element {
     return <NotFound/>;
   }
 
-  const {isPremium, images, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
-
-  const bookmarkButtonClass = classNames(
-    'property__bookmark-button button',
-    {
-      'property__bookmark-button--active': isFavorite,
-    });
+  const { isPremium, images, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
 
   const divHostAvatarClass = classNames(
     'property__avatar-wrapper user__avatar-wrapper',
@@ -40,34 +36,7 @@ function Room({ offers, reviews }: RoomProps): JSX.Element {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Header/>
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -86,12 +55,10 @@ function Room({ offers, reviews }: RoomProps): JSX.Element {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={bookmarkButtonClass} type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">{`${isFavorite ? 'In' : 'To'} bookmark`}</span>
-                </button>
+                <BookmarkButton
+                  buttonType={BookmarkButtonType.Property}
+                  isFavorite={isFavorite}
+                />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -168,7 +135,7 @@ function Room({ offers, reviews }: RoomProps): JSX.Element {
                 .map((item) => (
                   <OfferCard
                     key={item.id}
-                    cardType={CardType.NearPlace}
+                    cardType={CardType.NearPlaces}
                     offer={item}
                   />
                 ))}

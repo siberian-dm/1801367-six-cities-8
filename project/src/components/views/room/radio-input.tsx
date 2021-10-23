@@ -3,7 +3,7 @@ type RatingInputProps = {
   title: string;
 }
 
-function RatingInput({ value, title }: RatingInputProps): JSX.Element {
+function RadioInput({ value, title }: RatingInputProps): JSX.Element {
   return (
     <>
       <input className="form__rating-input visually-hidden" name="rating" value={value} id={`${value}-stars`} type="radio" />
@@ -16,4 +16,4 @@ function RatingInput({ value, title }: RatingInputProps): JSX.Element {
   );
 }
 
-export default RatingInput;
+export default RadioInput;

@@ -1,16 +1,20 @@
+import BookmarkButton from './bookmark-button';
 import classNames from 'classnames';
+import { BookmarkButtonType, CardType } from '../../const';
 import { calculateRating, capitalizeString } from '../../utils';
-import { CardType } from '../../const';
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/hotel';
 
-const FavoriteCardImage = {
-  WIDTH: '150',
-  HEIGHT: '110',
+const ImageWidth = {
+  [CardType.Cities]: '260',
+  [CardType.NearPlaces]: '260',
+  [CardType.Favorites]: '150',
 };
-const OtherCardImage = {
-  WIDTH: '260',
-  HEIGHT: '200',
+
+const ImageHeight = {
+  [CardType.Cities]: '200',
+  [CardType.NearPlaces]: '200',
+  [CardType.Favorites]: '110',
 };
 
 type OfferCardProps = {
@@ -22,32 +26,24 @@ type OfferCardProps = {
 function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Element {
   const { id, isPremium, previewImage, price, isFavorite, rating, title, type } = offer;
 
-  const bookmarkButtonClass = classNames(
-    'place-card__bookmark-button button',
-    {
-      'place-card__bookmark-button--active': isFavorite,
-    });
-
   const articleClass = classNames(
     'place-card',
     {
-      'cities__place-card': cardType === CardType.CityPlace,
-      'near-places__card': cardType === CardType.NearPlace,
-      'favorites__card': cardType === CardType.Favorite,
+      'cities__place-card': cardType === CardType.Cities,
+      'near-places__card': cardType === CardType.NearPlaces,
+      'favorites__card': cardType === CardType.Favorites,
     });
 
   const divImageClass = classNames(
     'place-card__image-wrapper',
     {
-      'cities__image-wrapper': cardType === CardType.CityPlace,
-      'near-places__image-wrapper': cardType === CardType.NearPlace,
-      'favorites__image-wrapper': cardType === CardType.Favorite,
+      [`${cardType}__image-wrapper`]: true,
     });
 
   const divInfoClass = classNames(
     'place-card__info',
     {
-      'favorites__card-info': cardType === CardType.Favorite,
+      'favorites__card-info': cardType === CardType.Favorites,
     });
 
   return (
@@ -57,8 +53,8 @@ function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Elemen
         <Link to={`/offer/${id}`}>
           <img className="place-card__image"
             src={previewImage}
-            width={cardType === CardType.Favorite ? FavoriteCardImage.WIDTH : OtherCardImage.WIDTH}
-            height={cardType === CardType.Favorite ? FavoriteCardImage.HEIGHT : OtherCardImage.HEIGHT}
+            width={ImageWidth[cardType]}
+            height={ImageHeight[cardType]}
             alt="Place"
           />
         </Link>
@@ -69,12 +65,10 @@ function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Elemen
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={bookmarkButtonClass} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">{`${isFavorite ? 'In' : 'To'} bookmark`}</span>
-          </button>
+          <BookmarkButton
+            buttonType={BookmarkButtonType.PlaceCard}
+            isFavorite={isFavorite}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
