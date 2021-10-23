@@ -1,4 +1,5 @@
-import { calculateRating, getHumanizeDate, getHumanizeVisibleDate } from '../../utils';
+import { calculateRating, getHumanizeDate } from '../../utils';
+import { DateFormat } from '../../const';
 import { Review } from '../../types/comment';
 
 type ReviewItemProps = {
@@ -26,7 +27,12 @@ function ReviewItem({ review: { user, rating, comment, date} }: ReviewItemProps)
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={getHumanizeDate(date)}>{getHumanizeVisibleDate(date)}</time>
+        <time
+          className="reviews__time"
+          dateTime={getHumanizeDate(date, DateFormat.DigitYearMonthDay)}
+        >
+          {getHumanizeDate(date, DateFormat.FullMonthYear)}
+        </time>
       </div>
     </li>
   );

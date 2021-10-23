@@ -16,3 +16,8 @@ export enum CardType {
   NearPlace = 'NEAR_PLACE',
   Favorite = 'FAVORITE',
 }
+
+export enum DateFormat {
+  FullMonthYear = 'MMMM YYYY',
+  DigitYearMonthDay = 'YYYY-MM-DD',
+}
