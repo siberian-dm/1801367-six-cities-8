@@ -4,6 +4,15 @@ import { CardType, offerTypes } from '../../const';
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/hotel';
 
+const FavoriteCardImage = {
+  WIDTH: '150',
+  HEIGHT: '110',
+};
+const OtherCardImage = {
+  WIDTH: '260',
+  HEIGHT: '200',
+};
+
 type OfferCardProps = {
   cardType: CardType;
   offer: Offer;
@@ -48,8 +57,8 @@ function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Elemen
         <Link to={`/offer/${id}`}>
           <img className="place-card__image"
             src={previewImage}
-            width={cardType === CardType.Favorite ? '150' : '260'}
-            height={cardType === CardType.Favorite ? '110' : '200'}
+            width={cardType === CardType.Favorite ? FavoriteCardImage.WIDTH : OtherCardImage.WIDTH}
+            height={cardType === CardType.Favorite ? FavoriteCardImage.HEIGHT : OtherCardImage.HEIGHT}
             alt="Place"
           />
         </Link>
