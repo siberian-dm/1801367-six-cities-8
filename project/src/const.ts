@@ -6,15 +6,15 @@ export enum AppRoute {
 }
 
 export enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
+  Auth,
+  NoAuth,
+  Unknown,
 }
 
 export enum CardType {
-  CityPlace = 'CITY_PLACE',
-  NearPlace = 'NEAR_PLACE',
-  Favorite = 'FAVORITE',
+  CityPlace,
+  NearPlace,
+  Favorite,
 }
 
 export enum DateFormat {

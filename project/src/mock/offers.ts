@@ -35,7 +35,6 @@ function getHotelMock(index: number) {
       'img/apartment-02.jpg',
       'img/apartment-03.jpg',
       'img/studio-01.jpg',
-      'img/apartment-01.jpg',
     ],
     isFavorite: faker.datatype.boolean(),
     isPremium: faker.datatype.boolean(),

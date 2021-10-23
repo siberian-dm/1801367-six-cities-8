@@ -20,7 +20,7 @@ type OfferCardProps = {
 }
 
 function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Element {
-  const {id, isPremium, previewImage, price, isFavorite, rating, title, type} = offer;
+  const { id, isPremium, previewImage, price, isFavorite, rating, title, type } = offer;
 
   const bookmarkButtonClass = classNames(
     'place-card__bookmark-button button',
