@@ -6,9 +6,10 @@ import { useState } from 'react';
 function OfferList ({ offers }: Offers):JSX.Element {
   const [, setActiveOfferCard] = useState({});
 
-  const handleOfferCardHover = (offerCard: Offer): void => {
-    setActiveOfferCard(offerCard);
-  };
+  const handleOfferCardHover = (offerCard: Offer) =>
+    (): void => {
+      setActiveOfferCard(offerCard);
+    };
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -17,7 +18,7 @@ function OfferList ({ offers }: Offers):JSX.Element {
           key={offer.id}
           cardType={CardType.CityPlace}
           offer={offer}
-          onMouseOver={() => handleOfferCardHover(offer)}
+          onMouseOver={handleOfferCardHover(offer)}
         />
       ))}
     </div>
