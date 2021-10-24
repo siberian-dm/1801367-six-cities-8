@@ -1,24 +1,24 @@
 import BookmarkButton from './bookmark-button';
 import classNames from 'classnames';
-import { BookmarkButtonType, CardType } from '../../const';
+import { BookmarkButtonType, OfferType } from '../../const';
 import { calculateRating, capitalizeString } from '../../utils';
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/hotel';
 
 const imageWidth = {
-  [CardType.Cities]: '260',
-  [CardType.NearPlaces]: '260',
-  [CardType.Favorites]: '150',
+  [OfferType.Cities]: '260',
+  [OfferType.NearPlaces]: '260',
+  [OfferType.Favorites]: '150',
 };
 
 const imageHeight = {
-  [CardType.Cities]: '200',
-  [CardType.NearPlaces]: '200',
-  [CardType.Favorites]: '110',
+  [OfferType.Cities]: '200',
+  [OfferType.NearPlaces]: '200',
+  [OfferType.Favorites]: '110',
 };
 
 type OfferCardProps = {
-  cardType: CardType;
+  cardType: OfferType;
   offer: Offer;
   onMouseOver?: () => void;
 }
@@ -29,9 +29,9 @@ function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Elemen
   const articleClass = classNames(
     'place-card',
     {
-      'cities__place-card': cardType === CardType.Cities,
-      'near-places__card': cardType === CardType.NearPlaces,
-      'favorites__card': cardType === CardType.Favorites,
+      'cities__place-card': cardType === OfferType.Cities,
+      'near-places__card': cardType === OfferType.NearPlaces,
+      'favorites__card': cardType === OfferType.Favorites,
     });
 
   const divImageClass = classNames(
@@ -43,7 +43,7 @@ function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Elemen
   const divInfoClass = classNames(
     'place-card__info',
     {
-      'favorites__card-info': cardType === CardType.Favorites,
+      'favorites__card-info': cardType === OfferType.Favorites,
     });
 
   return (

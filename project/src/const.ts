@@ -11,7 +11,7 @@ export enum AuthorizationStatus {
   Unknown,
 }
 
-export enum CardType {
+export enum OfferType {
   Cities = 'cities',
   NearPlaces = 'near-places',
   Favorites = 'favorites',
