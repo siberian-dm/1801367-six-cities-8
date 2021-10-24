@@ -1,12 +1,12 @@
 import { User } from './comment';
 
-interface Location {
+export interface Location {
   latitude: number;
   longitude: number;
   zoom: number;
 }
 
-interface City {
+export interface City {
   location: Location;
   name: string;
 }

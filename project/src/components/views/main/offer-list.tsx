@@ -1,15 +1,13 @@
 import OfferCard from '../../common/offer-card';
 import { CardType } from '../../../const';
-import { Offer, Offers } from '../../../types/hotel';
-import { useState } from 'react';
+import { Offer } from '../../../types/hotel';
 
-function OfferList ({ offers }: Offers):JSX.Element {
-  const [, setActiveOfferCard] = useState({});
+type OfferListProps = {
+  onMouseOver: (offerCard: Offer) => () => void;
+  offers: Offer[];
+};
 
-  const handleOfferCardHover = (offerCard: Offer) =>
-    (): void => {
-      setActiveOfferCard(offerCard);
-    };
+function OfferList ({ onMouseOver, offers }: OfferListProps):JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -18,7 +16,7 @@ function OfferList ({ offers }: Offers):JSX.Element {
           key={offer.id}
           cardType={CardType.Cities}
           offer={offer}
-          onMouseOver={handleOfferCardHover(offer)}
+          onMouseOver={onMouseOver(offer)}
         />
       ))}
     </div>

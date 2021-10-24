@@ -1,8 +1,16 @@
 import Header from '../../common/header';
+import Map from '../../common/map';
 import OfferList from './offer-list';
-import { Offers } from '../../../types/hotel';
+import { Offer, Offers } from '../../../types/hotel';
+import { useState } from 'react';
 
 function Main(props: JSX.IntrinsicAttributes & Offers): JSX.Element {
+  const [ActiveOfferCard, setActiveOfferCard] = useState<Offer | undefined>();
+
+  const handleOfferCardHover = (offerCard: Offer) => (): void => {
+    setActiveOfferCard(offerCard);
+  };
+
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -64,10 +72,10 @@ function Main(props: JSX.IntrinsicAttributes & Offers): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OfferList {...props}/>
+              <OfferList onMouseOver={handleOfferCardHover} {...props}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map points={props.offers} selectedPoint={ActiveOfferCard}/>
             </div>
           </div>
         </div>
