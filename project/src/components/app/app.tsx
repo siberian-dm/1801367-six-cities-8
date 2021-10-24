@@ -1,34 +1,35 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import MainPage from '../main-page/main-page';
-import LoginPage from '../login-page/login-page';
-import FavoritesPage from '../favorites-page/favorites-page';
-import PropertyPage from '../property-page/property-page';
-import PrivateRoute from '../private-route/private-route';
-import NotFoundPage from '../not-found-page/not-found-page';
-import { Hotel } from '../../types/hotel';
+import Favorites from '../views/favorites';
+import Login from '../views/login';
+import Main from '../views/main/main';
+import NotFound from '../views/not-found';
+import PrivateRoute from './private-route';
+import Room from '../views/room/room';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Offers } from '../../types/hotel';
+import { Reviews } from '../../types/comment';
 
-function App(props: JSX.IntrinsicAttributes & { hotels: Hotel[]; }): JSX.Element {
+function App(props: JSX.IntrinsicAttributes & Offers & Reviews): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Root} exact>
-          <MainPage {...props}/>
+          <Main {...props}/>
         </Route>
         <Route path={AppRoute.Login} exact>
-          <LoginPage/>
+          <Login/>
         </Route>
         <Route path={AppRoute.Offer} exact>
-          <PropertyPage/>
+          <Room {...props}/>
         </Route>
         <PrivateRoute
           path={AppRoute.Favorites}
-          render={() => <FavoritesPage/>}
-          authorizationStatus={AuthorizationStatus.NoAuth}
+          render={() => <Favorites {...props}/>}
+          authorizationStatus={AuthorizationStatus.Auth}
           exact
         />
         <Route>
-          <NotFoundPage/>
+          <NotFound/>
         </Route>
       </Switch>
     </BrowserRouter>
