@@ -26,3 +26,8 @@ export enum DateFormat {
   FullMonthYear = 'MMMM YYYY',
   DigitYearMonthDay = 'YYYY-MM-DD',
 }
+
+export enum MapType {
+  CitiesMap = 'cities__map',
+  PropertyMap = 'property__map',
+}

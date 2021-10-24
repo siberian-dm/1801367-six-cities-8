@@ -1,6 +1,7 @@
 import useMap from '../../hooks/useMap';
 import { City, Offer } from '../../types/hotel';
 import { Icon, Marker } from 'leaflet';
+import { MapType } from '../../const';
 import { useEffect, useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
 
@@ -16,6 +17,15 @@ const MOCK_CITY = {
   name: 'Amsterdam',
 };
 
+const mapStyle = {
+  [MapType.CitiesMap]: {},
+  [MapType.PropertyMap]: {
+    width: '1144px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+};
+
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [40, 40],
@@ -29,12 +39,13 @@ const currentCustomIcon = new Icon({
 });
 
 type MapProps = {
+  mapType: MapType;
   city?: City;
   points: Offer[];
   selectedPoint: Offer | undefined;
 };
 
-function Map({ city = MOCK_CITY, points, selectedPoint }: MapProps): JSX.Element {
+function Map({ mapType, city = MOCK_CITY, points, selectedPoint }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -57,7 +68,14 @@ function Map({ city = MOCK_CITY, points, selectedPoint }: MapProps): JSX.Element
     }
   }, [map, points, selectedPoint]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return (
+    <section
+      className={`${mapType} map`}
+      style={mapStyle[mapType]}
+      ref={mapRef}
+    >
+    </section>
+  );
 }
 
 export default Map;
