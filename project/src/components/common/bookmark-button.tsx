@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import { BookmarkButtonType } from '../../const';
 
-const IconWidth = {
+const iconWidth = {
   [BookmarkButtonType.PlaceCard]: '18',
   [BookmarkButtonType.Property]: '31',
 };
 
-const IconHeight = {
+const iconHeight = {
   [BookmarkButtonType.PlaceCard]: '19',
   [BookmarkButtonType.Property]: '33',
 };
@@ -31,12 +31,12 @@ function BookmarkButton({buttonType, isFavorite}: BookmarkButtonProps): JSX.Elem
     <button className={buttonClass} type="button">
       <svg
         className={svgClass}
-        width={IconWidth[buttonType]}
-        height={IconHeight[buttonType]}
+        width={iconWidth[buttonType]}
+        height={iconHeight[buttonType]}
       >
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
-      <span className="visually-hidden">{`${isFavorite ? 'In' : 'To'} bookmark`}</span>
+      <span className="visually-hidden">{isFavorite ? 'In' : 'To'} bookmark</span>
     </button>
   );
 }

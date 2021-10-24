@@ -1,8 +1,8 @@
 type HeaderProps = {
-  navList?: boolean;
+  isShowNavigation?: boolean;
 }
 
-function Header({ navList = true }: HeaderProps): JSX.Element {
+function Header({ isShowNavigation = true }: HeaderProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -12,7 +12,7 @@ function Header({ navList = true }: HeaderProps): JSX.Element {
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </a>
           </div>
-          {navList && (
+          {isShowNavigation && (
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
