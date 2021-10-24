@@ -1,11 +1,12 @@
 import BookmarkButton from '../../common/bookmark-button';
 import classNames from 'classnames';
 import Header from '../../common/header';
+import Map from '../../common/map';
 import NotFound from '../not-found';
 import OfferList from '../../common/offer-list';
 import ReviewForm from './review-form';
 import ReviewItem from './review-item';
-import { BookmarkButtonType, OfferType } from '../../../const';
+import { BookmarkButtonType, MapType, OfferType } from '../../../const';
 import { calculateRating, capitalizeString } from '../../../utils';
 import { Offer } from '../../../types/hotel';
 import { Review } from '../../../types/comment';
@@ -124,7 +125,7 @@ function Room({ offers, reviews }: RoomProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map mapType={MapType.PropertyMap} points={offers} selectedPoint={offer}/>
         </section>
         <div className="container">
           <section className="near-places places">
