@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function NotFound():JSX.Element {
   return (
     <section>
-      <Header navList={false}/>
+      <Header isShowNavigation={false}/>
       <section style={{
         display: 'flex',
         flexDirection: 'column',

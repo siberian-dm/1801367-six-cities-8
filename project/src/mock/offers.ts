@@ -1,7 +1,30 @@
 import faker from 'faker';
-import { Offer } from '../types/hotel';
+import { Location, Offer } from '../types/hotel';
 
-function getHotelMock(index: number) {
+const locations = [
+  {
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
+    zoom: 8,
+  },
+  {
+    latitude: 52.369553943508,
+    longitude: 4.85309666406198,
+    zoom: 8,
+  },
+  {
+    latitude: 52.3909553943508,
+    longitude: 4.929309666406198,
+    zoom: 8,
+  },
+  {
+    latitude: 52.3809553943508,
+    longitude: 4.939309666406198,
+    zoom: 8,
+  },
+];
+
+function getHotelMock(location: Location, index: number) {
   return {
     bedrooms: faker.datatype.number({min: 1, max: 5}),
     city: {
@@ -38,11 +61,7 @@ function getHotelMock(index: number) {
     ],
     isFavorite: faker.datatype.boolean(),
     isPremium: faker.datatype.boolean(),
-    location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 8,
-    },
+    location,
     maxAdults: faker.datatype.number({min: 1, max: 5}),
     previewImage: faker.helpers.randomize([
       'img/apartment-01.jpg',
@@ -67,6 +86,6 @@ function getHotelMock(index: number) {
   };
 }
 
-export function generateOffers(count: number): Offer[] {
-  return new Array(count).fill(null).map((_, index) => getHotelMock(index));
+export function generateOffers(): Offer[] {
+  return locations.map((location, index) =>  getHotelMock(location, index));
 }

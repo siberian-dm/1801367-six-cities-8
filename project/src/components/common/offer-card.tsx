@@ -5,13 +5,13 @@ import { calculateRating, capitalizeString } from '../../utils';
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/hotel';
 
-const ImageWidth = {
+const imageWidth = {
   [CardType.Cities]: '260',
   [CardType.NearPlaces]: '260',
   [CardType.Favorites]: '150',
 };
 
-const ImageHeight = {
+const imageHeight = {
   [CardType.Cities]: '200',
   [CardType.NearPlaces]: '200',
   [CardType.Favorites]: '110',
@@ -53,8 +53,8 @@ function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Elemen
         <Link to={`/offer/${id}`}>
           <img className="place-card__image"
             src={previewImage}
-            width={ImageWidth[cardType]}
-            height={ImageHeight[cardType]}
+            width={imageWidth[cardType]}
+            height={imageHeight[cardType]}
             alt="Place"
           />
         </Link>
