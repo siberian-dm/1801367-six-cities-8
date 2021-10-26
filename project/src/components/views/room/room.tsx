@@ -19,8 +19,12 @@ type RoomProps = {
   reviews: Review[];
 }
 
+type RoomParams = {
+  id?: string;
+}
+
 function Room({ offers, reviews }: RoomProps): JSX.Element {
-  const {id}:{id?:string} = useParams();
+  const { id }: RoomParams = useParams();
   const offer = offers.find((item: Offer) => item.id === Number(id));
   const nearOffers = offers.filter((item) => item.id !== Number(id)).slice(0, MAX_OFFERS);
 

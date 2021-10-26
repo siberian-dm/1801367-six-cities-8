@@ -4,7 +4,7 @@ import { Offers } from '../../types/hotel';
 import { OfferType } from '../../const';
 
 function Favorites({offers}: Offers): JSX.Element {
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const favoriteOffers = offers.filter(({ isFavorite }) => isFavorite);
 
   return (
     <div className="page">

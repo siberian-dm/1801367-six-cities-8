@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import OfferCard from './offer-card';
+import { noop } from 'lodash';
 import { Offer } from '../../types/hotel';
 import { OfferType } from '../../const';
 
@@ -23,7 +24,7 @@ function OfferList ({ type, onMouseOver, offers }: OfferListProps):JSX.Element {
           key={offer.id}
           cardType={type}
           offer={offer}
-          onMouseOver={onMouseOver ? onMouseOver(offer) : undefined}
+          onMouseOver={onMouseOver ? onMouseOver(offer) : noop}
         />
       ))}
     </div>

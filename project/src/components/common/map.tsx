@@ -73,8 +73,7 @@ function Map({ mapType, city = MOCK_CITY, points, selectedPoint }: MapProps): JS
       className={`${mapType} map`}
       style={mapStyle[mapType]}
       ref={mapRef}
-    >
-    </section>
+    />
   );
 }
 
