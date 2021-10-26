@@ -1,9 +1,11 @@
 import Header from '../common/header';
-import OfferCard from '../common/offer-card';
-import { CardType } from '../../const';
+import OfferList from '../common/offer-list';
 import { Offers } from '../../types/hotel';
+import { OfferType } from '../../const';
 
 function Favorites({offers}: Offers): JSX.Element {
+  const favoriteOffers = offers.filter(({ isFavorite }) => isFavorite);
+
   return (
     <div className="page">
       <Header/>
@@ -21,15 +23,7 @@ function Favorites({offers}: Offers): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {offers
-                    .filter((offer) => offer.isFavorite)
-                    .map((offer) => (
-                      <OfferCard
-                        key={offer.id}
-                        cardType={CardType.Favorites}
-                        offer={offer}
-                      />
-                    ))}
+                  <OfferList type={OfferType.Favorites} offers={favoriteOffers}/>
                 </div>
               </li>
             </ul>

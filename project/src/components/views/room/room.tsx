@@ -1,11 +1,12 @@
 import BookmarkButton from '../../common/bookmark-button';
 import classNames from 'classnames';
 import Header from '../../common/header';
+import Map from '../../common/map';
 import NotFound from '../not-found';
-import OfferCard from '../../common/offer-card';
+import OfferList from '../../common/offer-list';
 import ReviewForm from './review-form';
 import ReviewItem from './review-item';
-import { BookmarkButtonType, CardType } from '../../../const';
+import { BookmarkButtonType, MapType, OfferType } from '../../../const';
 import { calculateRating, capitalizeString } from '../../../utils';
 import { Offer } from '../../../types/hotel';
 import { Review } from '../../../types/comment';
@@ -18,9 +19,14 @@ type RoomProps = {
   reviews: Review[];
 }
 
+type RoomParams = {
+  id?: string;
+}
+
 function Room({ offers, reviews }: RoomProps): JSX.Element {
-  const {id}:{id?:string} = useParams();
+  const { id }: RoomParams = useParams();
   const offer = offers.find((item: Offer) => item.id === Number(id));
+  const nearOffers = offers.filter((item) => item.id !== Number(id)).slice(0, MAX_OFFERS);
 
   if (!offer) {
     return <NotFound/>;
@@ -123,22 +129,13 @@ function Room({ offers, reviews }: RoomProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map mapType={MapType.PropertyMap} points={offers} selectedPoint={offer}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {offers
-                .filter((item) => item.id !== Number(id))
-                .slice(0, MAX_OFFERS)
-                .map((item) => (
-                  <OfferCard
-                    key={item.id}
-                    cardType={CardType.NearPlaces}
-                    offer={item}
-                  />
-                ))}
+              <OfferList type={OfferType.NearPlaces} offers={nearOffers}/>
             </div>
           </section>
         </div>

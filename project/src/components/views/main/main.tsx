@@ -1,6 +1,7 @@
 import Header from '../../common/header';
 import Map from '../../common/map';
-import OfferList from './offer-list';
+import OfferList from '../../common/offer-list';
+import { MapType, OfferType } from '../../../const';
 import { Offer, Offers } from '../../../types/hotel';
 import { useState } from 'react';
 
@@ -72,10 +73,10 @@ function Main(props: JSX.IntrinsicAttributes & Offers): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OfferList onMouseOver={handleOfferCardHover} {...props}/>
+              <OfferList type={OfferType.Cities} onMouseOver={handleOfferCardHover} {...props}/>
             </section>
             <div className="cities__right-section">
-              <Map points={props.offers} selectedPoint={ActiveOfferCard}/>
+              <Map mapType={MapType.CitiesMap} points={props.offers} selectedPoint={ActiveOfferCard}/>
             </div>
           </div>
         </div>

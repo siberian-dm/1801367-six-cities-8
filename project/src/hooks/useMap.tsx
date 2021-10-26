@@ -3,11 +3,11 @@ import { Map, TileLayer } from 'leaflet';
 import { MutableRefObject, useEffect, useState } from 'react';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map | null {
-  const { location } = city;
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
+      const { location } = city;
       const instance = new Map(mapRef.current, {
         center: {
           lat: location.latitude,
@@ -28,7 +28,6 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
 
       setMap(instance);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapRef, map, city]);
 
   return map;

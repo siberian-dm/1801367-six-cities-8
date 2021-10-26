@@ -11,7 +11,7 @@ export enum AuthorizationStatus {
   Unknown,
 }
 
-export enum CardType {
+export enum OfferType {
   Cities = 'cities',
   NearPlaces = 'near-places',
   Favorites = 'favorites',
@@ -25,4 +25,9 @@ export enum BookmarkButtonType {
 export enum DateFormat {
   FullMonthYear = 'MMMM YYYY',
   DigitYearMonthDay = 'YYYY-MM-DD',
+}
+
+export enum MapType {
+  CitiesMap = 'cities__map',
+  PropertyMap = 'property__map',
 }
