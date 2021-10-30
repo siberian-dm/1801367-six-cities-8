@@ -1,16 +1,47 @@
 import Header from '../../common/header';
 import Map from '../../common/map';
 import OfferList from '../../common/offer-list';
+import { Actions } from '../../../types/action';
+import { City } from '../../../types/city';
+import { connect, ConnectedProps } from 'react-redux';
+import { Dispatch } from 'redux';
+import { generateOffers } from '../../../mock/offers';
 import { MapType, OfferType } from '../../../const';
-import { Offer, Offers } from '../../../types/hotel';
-import { useState } from 'react';
+import { Offer } from '../../../types/hotel';
+import { setCity, setOffers } from '../../../store/action';
+import { State } from '../../../types/state';
+import { useEffect, useState } from 'react';
 
-function Main(props: JSX.IntrinsicAttributes & Offers): JSX.Element {
-  const [ActiveOfferCard, setActiveOfferCard] = useState<Offer | undefined>();
+const mapStateToProps = ({ city, offers }: State) => ({
+  city,
+  offers,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  onCityChange(city: City) {
+    dispatch(setCity(city));
+  },
+  onComponentLoad(offers: Offer[]) {
+    dispatch(setOffers(offers));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function Main(props: PropsFromRedux): JSX.Element {
+  const { onComponentLoad } = props;
+  const [ ActiveOfferCard, setActiveOfferCard ] = useState<Offer | undefined>();
 
   const handleOfferCardHover = (offerCard: Offer) => (): void => {
     setActiveOfferCard(offerCard);
   };
+
+  useEffect(() => {
+    const offers = generateOffers();
+    onComponentLoad(offers);
+  }, [onComponentLoad]);
 
   return (
     <div className="page page--gray page--main">
@@ -85,4 +116,5 @@ function Main(props: JSX.IntrinsicAttributes & Offers): JSX.Element {
   );
 }
 
-export default Main;
+export {Main};
+export default connector(Main);

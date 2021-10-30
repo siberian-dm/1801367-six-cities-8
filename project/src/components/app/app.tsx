@@ -14,7 +14,7 @@ function App(props: JSX.IntrinsicAttributes & Offers & Reviews): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Root} exact>
-          <Main {...props}/>
+          <Main/>
         </Route>
         <Route path={AppRoute.Login} exact>
           <Login/>
