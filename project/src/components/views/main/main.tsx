@@ -3,40 +3,16 @@ import Header from '../../common/header';
 import NoOffers from './no-offers';
 import Offers from './offers';
 import TabItem from './tab-item';
-import { Actions } from '../../../types/action';
 import { City } from '../../../types/city';
-import { connect, ConnectedProps } from 'react-redux';
-import { Dispatch } from 'redux';
-import { generateOffers } from '../../../mock/offers';
-import { Offer } from '../../../types/hotel';
-import { setCity, setOffers } from '../../../store/action';
-import { State } from '../../../types/state';
-import { useEffect } from 'react';
+import { getCity } from '../../../store/main-data/selectors';
+import { getOffers } from '../../../store/app-data/selectors';
+import { setCity } from '../../../store/action';
+import { useDispatch, useSelector } from 'react-redux';
 
-const mapStateToProps = ({ city, offers }: State) => ({
-  city,
-  offers,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onTabClick(city: City) {
-    dispatch(setCity(city));
-  },
-  onComponentLoad(offers: Offer[]) {
-    dispatch(setOffers(offers));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function Main(props: PropsFromRedux): JSX.Element {
-  const { city, offers, onTabClick, onComponentLoad } = props;
-
-  useEffect(() => {
-    onComponentLoad(generateOffers());
-  }, [onComponentLoad]);
+function Main(): JSX.Element {
+  const dispatch = useDispatch();
+  const offers = useSelector(getOffers);
+  const city = useSelector(getCity);
 
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
 
@@ -59,7 +35,7 @@ function Main(props: PropsFromRedux): JSX.Element {
                   key={item}
                   city={item}
                   isChecked={item === city}
-                  onTabClick={onTabClick}
+                  onTabClick={() => dispatch(setCity(item))}
                 />
               ))}
             </ul>
@@ -75,5 +51,4 @@ function Main(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export {Main};
-export default connector(Main);
+export default Main;

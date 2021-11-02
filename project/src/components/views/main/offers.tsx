@@ -4,6 +4,9 @@ import SortForm from './sort-form';
 import { MapType, OfferType, SortType } from '../../../const';
 import { Offer } from '../../../types/hotel';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSort } from '../../../store/main-data/selectors';
+import { setSort } from '../../../store/action';
 
 type OffersProps = {
   offers: Offer[];
@@ -11,14 +14,16 @@ type OffersProps = {
 
 function Offers({ offers }: OffersProps): JSX.Element {
   const [ ActiveOfferCard, setActiveOfferCard ] = useState<Offer | undefined>();
-  const [ activeSort, setActiveSort ] = useState(SortType.Popular);
+
+  const dispatch = useDispatch();
+  const activeSort = useSelector(getSort);
 
   const handleOfferCardHover = (offerCard: Offer) => (): void => {
     setActiveOfferCard(offerCard);
   };
 
   const handleSortChange = (sort: SortType): void => {
-    setActiveSort(sort);
+    dispatch(setSort(sort));
   };
 
   const sortOffers = (offersToSort: Offer[]) => {

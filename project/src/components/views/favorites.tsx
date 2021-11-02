@@ -1,9 +1,11 @@
 import Header from '../common/header';
 import OfferList from '../common/offer-list';
-import { Offers } from '../../types/hotel';
+import { getOffers } from '../../store/app-data/selectors';
 import { OfferType } from '../../const';
+import { useSelector } from 'react-redux';
 
-function Favorites({offers}: Offers): JSX.Element {
+function Favorites(): JSX.Element {
+  const offers = useSelector(getOffers);
   const favoriteOffers = offers.filter(({ isFavorite }) => isFavorite);
 
   return (

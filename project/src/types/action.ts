@@ -1,10 +1,6 @@
-import { setCity, setOffers } from '../store/action';
-
 export enum ActionType {
+  SetOffers = 'app/setOffers',
+  SetReviews = 'app/setReviews',
   SetCity = 'main/setCity',
-  SetOffers = 'main/setOffers',
+  SetSort = 'main/setSort',
 }
-
-export type Actions =
-  | ReturnType<typeof setCity>
-  | ReturnType<typeof setOffers>;
