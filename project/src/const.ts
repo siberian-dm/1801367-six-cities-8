@@ -31,3 +31,10 @@ export enum MapType {
   CitiesMap = 'cities__map',
   PropertyMap = 'property__map',
 }
+
+export enum SortType {
+  Popular = 'Popular',
+  PriceLow = 'Price: low to high',
+  PriceHight = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
