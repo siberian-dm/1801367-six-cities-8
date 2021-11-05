@@ -1,12 +1,13 @@
 import Map from '../../common/map';
 import OfferList from '../../common/offer-list';
 import SortForm from './sort-form';
+import { getSort } from '../../../store/reducers/main-data/selectors';
 import { MapType, OfferType, SortType } from '../../../const';
 import { Offer } from '../../../types/hotel';
-import { useState } from 'react';
+import { setSort } from '../../../store/reducers/main-data/main-data';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSort } from '../../../store/main-data/selectors';
-import { setSort } from '../../../store/action';
+import { useState } from 'react';
+
 
 type OffersProps = {
   offers: Offer[];

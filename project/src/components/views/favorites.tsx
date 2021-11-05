@@ -1,6 +1,6 @@
 import Header from '../common/header';
 import OfferList from '../common/offer-list';
-import { getOffers } from '../../store/app-data/selectors';
+import { getOffers } from '../../store/reducers/app-data/selectors';
 import { OfferType } from '../../const';
 import { useSelector } from 'react-redux';
 

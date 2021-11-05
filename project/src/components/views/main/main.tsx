@@ -4,9 +4,9 @@ import NoOffers from './no-offers';
 import Offers from './offers';
 import TabItem from './tab-item';
 import { City } from '../../../types/city';
-import { getCity } from '../../../store/main-data/selectors';
-import { getOffers } from '../../../store/app-data/selectors';
-import { setCity } from '../../../store/action';
+import { getCity } from '../../../store/reducers/main-data/selectors';
+import { getOffers } from '../../../store/reducers/app-data/selectors';
+import { setCity } from '../../../store/reducers/main-data/main-data';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Main(): JSX.Element {

@@ -8,7 +8,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { generateOffers } from '../../mock/offers';
 import { generateReviews } from '../../mock/reviews';
-import { setOffers, setReviews } from '../../store/action';
+import { setOffers, setReviews } from '../../store/reducers/app-data/app-data';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 

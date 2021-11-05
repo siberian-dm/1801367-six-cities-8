@@ -8,7 +8,7 @@ import ReviewForm from './review-form';
 import ReviewItem from './review-item';
 import { BookmarkButtonType, MapType, OfferType } from '../../../const';
 import { calculateRating, capitalizeString } from '../../../utils';
-import { getOffers, getReviews } from '../../../store/app-data/selectors';
+import { getOffers, getReviews } from '../../../store/reducers/app-data/selectors';
 import { Offer } from '../../../types/hotel';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';

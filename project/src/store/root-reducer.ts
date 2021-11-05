@@ -1,15 +1,11 @@
-import { appData } from './app-data/app-data';
+import appDataReducer from './reducers/app-data/app-data';
+import mainDataReducer from './reducers/main-data/main-data';
 import { combineReducers } from '@reduxjs/toolkit';
-import { mainData } from './main-data/main-data';
-
-export enum NameSpace {
-  App = 'APP',
-  Main = 'MAIN',
-}
+import { DataType } from '../types/store';
 
 export const rootReducer = combineReducers({
-  [NameSpace.App]: appData,
-  [NameSpace.Main]: mainData,
+  [DataType.App]: appDataReducer,
+  [DataType.Main]: mainDataReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

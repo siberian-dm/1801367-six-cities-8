@@ -4,14 +4,20 @@ import { Review } from './comment';
 import { SortType } from '../const';
 import { RootState } from '../store/root-reducer';
 
-export interface MainData {
+export enum DataType {
+  App = 'APP',
+  Main = 'MAIN',
+}
+
+export interface MainDataState {
   city: City;
   sort: SortType;
 }
 
-export interface AppData {
+export interface AppDataState {
   offers: Offer[] | [];
   reviews: Review[] | [];
 }
 
 export type State = RootState;
+
