@@ -26,6 +26,9 @@ function App(): JSX.Element {
         <Route path={AppRoute.Root} exact>
           <Main/>
         </Route>
+        <Route path={AppRoute.Offers} exact>
+          <Main/>
+        </Route>
         <Route path={AppRoute.Login} exact>
           <Login/>
         </Route>

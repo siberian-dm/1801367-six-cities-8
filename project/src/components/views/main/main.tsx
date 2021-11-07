@@ -4,17 +4,28 @@ import NoOffers from './no-offers';
 import Offers from './offers';
 import TabItem from './tab-item';
 import { City } from '../../../types/city';
-import { getCity } from '../../../store/reducers/main-data/selectors';
 import { getOffers } from '../../../store/reducers/app-data/selectors';
-import { setCity } from '../../../store/reducers/main-data/main-data';
-import { useDispatch, useSelector } from 'react-redux';
+import { isValueInEnum, sortOffers } from '../../../utils';
+import { SortingType } from '../../../const';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+type MainParams = {
+  city: City;
+  sorting: SortingType;
+}
 
 function Main(): JSX.Element {
-  const dispatch = useDispatch();
-  const offers = useSelector(getOffers);
-  const city = useSelector(getCity);
+  const { city, sorting }: MainParams = useParams();
 
-  const filteredOffers = offers.filter((offer) => offer.city.name === city);
+  const activeCity = isValueInEnum(city, City) ? city : City.Paris;
+  const activeSorting = isValueInEnum(sorting, SortingType) ? sorting : SortingType.Popular;
+
+  const offers = useSelector(getOffers);
+
+  const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
+
+  const sortedAndFilteredOffers = sortOffers(filteredOffers, activeSorting);
 
   const mainClass = classNames(
     'page__main page__main--index',
@@ -30,12 +41,12 @@ function Main(): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {Object.values(City).map((item) => (
+              {Object.values(City).map((cityItem) => (
                 <TabItem
-                  key={item}
-                  city={item}
-                  isChecked={item === city}
-                  onTabClick={() => dispatch(setCity(item))}
+                  key={cityItem}
+                  city={cityItem}
+                  isChecked={cityItem === activeCity}
+                  sorting={activeSorting}
                 />
               ))}
             </ul>
@@ -43,8 +54,13 @@ function Main(): JSX.Element {
         </div>
         <div className="cities">
           {filteredOffers.length
-            ? <Offers offers={filteredOffers}/>
-            : <NoOffers city={city}/>}
+            ?
+            <Offers
+              offers={sortedAndFilteredOffers}
+              sorting={activeSorting}
+              city={activeCity}
+            />
+            : <NoOffers city={activeCity}/>}
         </div>
       </main>
     </div>
