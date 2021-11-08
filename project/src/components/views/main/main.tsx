@@ -3,42 +3,29 @@ import Header from '../../common/header';
 import NoOffers from './no-offers';
 import Offers from './offers';
 import TabItem from './tab-item';
-import { Actions } from '../../../types/action';
 import { City } from '../../../types/city';
-import { connect, ConnectedProps } from 'react-redux';
-import { Dispatch } from 'redux';
-import { generateOffers } from '../../../mock/offers';
-import { Offer } from '../../../types/hotel';
-import { setCity, setOffers } from '../../../store/action';
-import { State } from '../../../types/state';
-import { useEffect } from 'react';
+import { getOffers } from '../../../store/reducers/app-data/selectors';
+import { isValueInEnum, sortOffers } from '../../../utils';
+import { SortingType } from '../../../const';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const mapStateToProps = ({ city, offers }: State) => ({
-  city,
-  offers,
-});
+type MainParams = {
+  city: City;
+  sorting: SortingType;
+}
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onTabClick(city: City) {
-    dispatch(setCity(city));
-  },
-  onComponentLoad(offers: Offer[]) {
-    dispatch(setOffers(offers));
-  },
-});
+function Main(): JSX.Element {
+  const { city, sorting }: MainParams = useParams();
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+  const activeCity = isValueInEnum(city, City) ? city : City.Paris;
+  const activeSorting = isValueInEnum(sorting, SortingType) ? sorting : SortingType.Popular;
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
+  const offers = useSelector(getOffers);
 
-function Main(props: PropsFromRedux): JSX.Element {
-  const { city, offers, onTabClick, onComponentLoad } = props;
+  const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
 
-  useEffect(() => {
-    onComponentLoad(generateOffers());
-  }, [onComponentLoad]);
-
-  const filteredOffers = offers.filter((offer) => offer.city.name === city);
+  const sortedAndFilteredOffers = sortOffers(filteredOffers, activeSorting);
 
   const mainClass = classNames(
     'page__main page__main--index',
@@ -54,12 +41,12 @@ function Main(props: PropsFromRedux): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {Object.values(City).map((item) => (
+              {Object.values(City).map((cityItem) => (
                 <TabItem
-                  key={item}
-                  city={item}
-                  isChecked={item === city}
-                  onTabClick={onTabClick}
+                  key={cityItem}
+                  city={cityItem}
+                  isChecked={cityItem === activeCity}
+                  sorting={activeSorting}
                 />
               ))}
             </ul>
@@ -67,13 +54,17 @@ function Main(props: PropsFromRedux): JSX.Element {
         </div>
         <div className="cities">
           {filteredOffers.length
-            ? <Offers offers={filteredOffers}/>
-            : <NoOffers city={city}/>}
+            ?
+            <Offers
+              offers={sortedAndFilteredOffers}
+              sorting={activeSorting}
+              city={activeCity}
+            />
+            : <NoOffers city={activeCity}/>}
         </div>
       </main>
     </div>
   );
 }
 
-export {Main};
-export default connector(Main);
+export default Main;

@@ -8,23 +8,22 @@ import ReviewForm from './review-form';
 import ReviewItem from './review-item';
 import { BookmarkButtonType, MapType, OfferType } from '../../../const';
 import { calculateRating, capitalizeString } from '../../../utils';
+import { getOffers, getReviews } from '../../../store/reducers/app-data/selectors';
 import { Offer } from '../../../types/hotel';
-import { Review } from '../../../types/comment';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MAX_OFFERS = 3;
-
-type RoomProps = {
-  offers: Offer[];
-  reviews: Review[];
-}
 
 type RoomParams = {
   id?: string;
 }
 
-function Room({ offers, reviews }: RoomProps): JSX.Element {
+function Room(): JSX.Element {
   const { id }: RoomParams = useParams();
+  const offers = useSelector(getOffers);
+  const reviews = useSelector(getReviews);
+
   const offer = offers.find((item: Offer) => item.id === Number(id));
   const nearOffers = offers.filter((item) => item.id !== Number(id)).slice(0, MAX_OFFERS);
 

@@ -6,25 +6,38 @@ import PrivateRoute from './private-route';
 import Room from '../views/room/room';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Offers } from '../../types/hotel';
-import { Reviews } from '../../types/comment';
+import { generateOffers } from '../../mock/offers';
+import { generateReviews } from '../../mock/reviews';
+import { setOffers, setReviews } from '../../store/reducers/app-data/app-data';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
-function App(props: JSX.IntrinsicAttributes & Offers & Reviews): JSX.Element {
+function App(): JSX.Element {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setOffers(generateOffers()));
+    dispatch(setReviews(generateReviews()));
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Root} exact>
           <Main/>
         </Route>
+        <Route path={AppRoute.Offers} exact>
+          <Main/>
+        </Route>
         <Route path={AppRoute.Login} exact>
           <Login/>
         </Route>
         <Route path={AppRoute.Offer} exact>
-          <Room {...props}/>
+          <Room/>
         </Route>
         <PrivateRoute
           path={AppRoute.Favorites}
-          render={() => <Favorites {...props}/>}
+          render={() => <Favorites/>}
           authorizationStatus={AuthorizationStatus.Auth}
           exact
         />

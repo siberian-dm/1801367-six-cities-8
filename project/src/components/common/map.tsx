@@ -1,4 +1,4 @@
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import { City, Offer } from '../../types/hotel';
 import { Icon, Marker } from 'leaflet';
 import { MapType } from '../../const';

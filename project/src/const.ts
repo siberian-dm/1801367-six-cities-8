@@ -3,6 +3,7 @@ export enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
   Offer = '/offer/:id',
+  Offers = '/:city/offers/:sorting',
 }
 
 export enum AuthorizationStatus {
@@ -30,4 +31,11 @@ export enum DateFormat {
 export enum MapType {
   CitiesMap = 'cities__map',
   PropertyMap = 'property__map',
+}
+
+export enum SortingType {
+  Popular = 'Popular',
+  PriceLow = 'Price: low to high',
+  PriceHight = 'Price: high to low',
+  TopRated = 'Top rated first',
 }

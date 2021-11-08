@@ -1,13 +1,15 @@
 import classNames from 'classnames';
 import { City } from '../../../types/city';
+import { Link } from 'react-router-dom';
+import { SortingType } from '../../../const';
 
 type TabItemProps = {
   city: City;
   isChecked: boolean;
-  onTabClick: (city: City) => void;
+  sorting: SortingType;
 }
 
-function TabItem({ city, isChecked, onTabClick }: TabItemProps): JSX.Element {
+function TabItem({ city, isChecked, sorting }: TabItemProps): JSX.Element {
   const linkClass = classNames(
     'locations__item-link tabs__item',
     {
@@ -17,16 +19,12 @@ function TabItem({ city, isChecked, onTabClick }: TabItemProps): JSX.Element {
 
   return (
     <li className="locations__item">
-      <a
+      <Link
         className={linkClass}
-        href="/"
-        onClick={(evt) => {
-          evt.preventDefault();
-          onTabClick(city);
-        }}
+        to={`/${city}/offers/${sorting}`}
       >
         <span>{city}</span>
-      </a>
+      </Link>
     </li>
   );
 }
