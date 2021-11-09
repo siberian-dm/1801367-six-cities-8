@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { City } from '../../../types/city';
 import { Link } from 'react-router-dom';
 import { SortingType } from '../../../const';
-import { City } from '../../../types/city';
+import { useState } from 'react';
 
 type SortingFormProps = {
   city: City;
@@ -28,7 +28,7 @@ function SortingForm({ sorting, city }: SortingFormProps): JSX.Element {
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-caption">Sort by </span>
       <span
         className="places__sorting-type"
         tabIndex={0}
@@ -42,10 +42,24 @@ function SortingForm({ sorting, city }: SortingFormProps): JSX.Element {
       <ul className={ulClass}>
         {Object.values(SortingType).map((sortingItem) => (
           <li key={sortingItem}
-            className={`places__option ${sortingItem === sorting ? 'places__option--active' : ''}`}
+            className={classNames(
+              'places__option',
+              {
+                'places__option--active': sortingItem === sorting,
+              })}
+            style={{padding: '0px'}}
             tabIndex={0}
           >
-            <Link to={`/${city}/offers/${sortingItem}`} onClick={handleLinkClick}>{sortingItem}</Link>
+            <Link
+              style={{
+                display: 'block',
+                padding: '14px 16px 10px',
+              }}
+              to={`/${city}/offers/${sortingItem}`}
+              onClick={handleLinkClick}
+            >
+              {sortingItem}
+            </Link>
           </li>
         ))}
       </ul>
