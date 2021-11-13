@@ -1,11 +1,10 @@
 import classNames from 'classnames';
-import { City } from '../../../types/city';
 import { Link } from 'react-router-dom';
-import { SortingType } from '../../../const';
+import { CityName, SortingType } from '../../../const';
 import { useState } from 'react';
 
 type SortingFormProps = {
-  city: City;
+  city: CityName;
   sorting: SortingType;
 }
 

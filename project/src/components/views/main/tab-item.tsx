@@ -1,10 +1,9 @@
 import classNames from 'classnames';
-import { City } from '../../../types/city';
 import { Link } from 'react-router-dom';
-import { SortingType } from '../../../const';
+import { CityName, SortingType } from '../../../const';
 
 type TabItemProps = {
-  city: City;
+  city: CityName;
   isChecked: boolean;
   sorting: SortingType;
 }

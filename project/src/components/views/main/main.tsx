@@ -3,34 +3,32 @@ import Header from '../../common/header';
 import NoOffers from './no-offers';
 import Offers from './offers';
 import TabItem from './tab-item';
-import { City } from '../../../types/city';
+import { CityName, SortingType } from '../../../const';
 import { getOffers } from '../../../store/reducers/app-data/selectors';
 import { isValueInEnum, sortOffers } from '../../../utils';
-import { SortingType } from '../../../const';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 type MainParams = {
-  city: City;
+  city: CityName;
   sorting: SortingType;
 }
 
 function Main(): JSX.Element {
   const { city, sorting }: MainParams = useParams();
 
-  const activeCity = isValueInEnum(city, City) ? city : City.Paris;
-  const activeSorting = isValueInEnum(sorting, SortingType) ? sorting : SortingType.Popular;
-
   const offers = useSelector(getOffers);
 
-  const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
+  const activeCity = isValueInEnum(city, CityName) ? city : CityName.Paris;
+  const activeSorting = isValueInEnum(sorting, SortingType) ? sorting : SortingType.Popular;
 
-  const sortedAndFilteredOffers = sortOffers(filteredOffers, activeSorting);
+  const offersByCity = offers.filter((offer) => offer.city.name === activeCity);
+  const sortedOffersByCity = sortOffers(offersByCity, activeSorting);
 
   const mainClass = classNames(
     'page__main page__main--index',
     {
-      'page__main--index-empty': !filteredOffers.length,
+      'page__main--index-empty': !offersByCity.length,
     });
 
   return (
@@ -41,7 +39,7 @@ function Main(): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {Object.values(City).map((cityItem) => (
+              {Object.values(CityName).map((cityItem) => (
                 <TabItem
                   key={cityItem}
                   city={cityItem}
@@ -53,12 +51,12 @@ function Main(): JSX.Element {
           </section>
         </div>
         <div className="cities">
-          {filteredOffers.length
+          {offersByCity.length
             ?
             <Offers
-              offers={sortedAndFilteredOffers}
               sorting={activeSorting}
               city={activeCity}
+              offers={sortedOffersByCity}
             />
             : <NoOffers city={activeCity}/>}
         </div>

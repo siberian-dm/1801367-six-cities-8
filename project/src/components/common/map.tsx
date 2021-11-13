@@ -8,15 +8,6 @@ import 'leaflet/dist/leaflet.css';
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
-const MOCK_CITY = {
-  location: {
-    latitude: 52.370216,
-    longitude: 4.895168,
-    zoom: 10,
-  },
-  name: 'Amsterdam',
-};
-
 const mapStyle = {
   [MapType.CitiesMap]: {},
   [MapType.PropertyMap]: {
@@ -40,17 +31,17 @@ const currentCustomIcon = new Icon({
 
 type MapProps = {
   mapType: MapType;
-  city?: City;
+  cityLocation: City;
   points: Offer[];
   selectedPoint: Offer | undefined;
 };
 
-function Map({ mapType, city = MOCK_CITY, points, selectedPoint }: MapProps): JSX.Element {
+function Map({ mapType, cityLocation, points, selectedPoint }: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const [ map, offersLayerGroup ] = useMap(mapRef, cityLocation);
 
   useEffect(() => {
-    if (map) {
+    if (map !== null && offersLayerGroup !== null) {
       points.forEach(({ location, id }) => {
         const marker = new Marker({
           lat: location.latitude,
@@ -63,10 +54,11 @@ function Map({ mapType, city = MOCK_CITY, points, selectedPoint }: MapProps): JS
               ? currentCustomIcon
               : defaultCustomIcon,
           )
-          .addTo(map);
+          .addTo(offersLayerGroup);
       });
     }
-  }, [map, points, selectedPoint]);
+
+  }, [map, points, cityLocation, selectedPoint, offersLayerGroup]);
 
   return (
     <section

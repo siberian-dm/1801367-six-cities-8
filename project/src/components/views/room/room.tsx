@@ -31,7 +31,7 @@ function Room(): JSX.Element {
     return <NotFound/>;
   }
 
-  const { isPremium, images, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
+  const { city, isPremium, images, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
 
   const divHostAvatarClass = classNames(
     'property__avatar-wrapper user__avatar-wrapper',
@@ -128,7 +128,7 @@ function Room(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map mapType={MapType.PropertyMap} points={offers} selectedPoint={offer}/>
+          <Map mapType={MapType.PropertyMap} cityLocation={city} points={offers} selectedPoint={offer}/>
         </section>
         <div className="container">
           <section className="near-places places">

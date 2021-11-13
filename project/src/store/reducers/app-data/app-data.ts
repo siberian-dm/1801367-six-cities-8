@@ -4,13 +4,17 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState: AppDataState = {
   offers: [],
   reviews: [],
+  isDataLoading: false,
 };
 
 const appData = createSlice({
   name: DataType.App,
   initialState: initialState,
   reducers: {
-    setOffers(state, action) {
+    setIsDataLoading(state, action) {
+      state.isDataLoading = action.payload;
+    },
+    loadOffers(state, action) {
       state.offers = action.payload;
     },
     setReviews(state, action) {
@@ -21,6 +25,6 @@ const appData = createSlice({
 
 const { actions, reducer } = appData;
 
-export const { setOffers, setReviews } = actions;
+export const { setIsDataLoading, loadOffers, setReviews } = actions;
 
 export default reducer;

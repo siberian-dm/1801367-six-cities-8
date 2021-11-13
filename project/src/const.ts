@@ -6,6 +6,12 @@ export enum AppRoute {
   Offers = '/:city/offers/:sorting',
 }
 
+export enum APIRoute {
+  Hotels = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export enum AuthorizationStatus {
   Auth,
   NoAuth,
@@ -38,4 +44,13 @@ export enum SortingType {
   PriceLow = 'Price: low to high',
   PriceHight = 'Price: high to low',
   TopRated = 'Top rated first',
+}
+
+export enum CityName {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
 }

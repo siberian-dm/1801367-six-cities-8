@@ -6,9 +6,9 @@ import PrivateRoute from './private-route';
 import Room from '../views/room/room';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { generateOffers } from '../../mock/offers';
+import { fetchOffersAction } from '../../store/api-action';
 import { generateReviews } from '../../mock/reviews';
-import { setOffers, setReviews } from '../../store/reducers/app-data/app-data';
+import { setReviews } from '../../store/reducers/app-data/app-data';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -16,7 +16,7 @@ function App(): JSX.Element {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setOffers(generateOffers()));
+    dispatch(fetchOffersAction());
     dispatch(setReviews(generateReviews()));
   }, [dispatch]);
 
