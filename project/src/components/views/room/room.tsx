@@ -2,7 +2,7 @@ import BookmarkButton from '../../common/bookmark-button';
 import classNames from 'classnames';
 import Header from '../../common/header/header';
 import Map from '../../common/map/map';
-import NotFound from '../not-found';
+import NotFound from '../not-found/not-found';
 import OfferList from '../../common/offer-list';
 import ReviewForm from './review-form';
 import ReviewItem from './review-item';

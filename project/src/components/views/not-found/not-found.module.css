@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.container a {
+  display: block;
+  font-size: 19px;
+  font-weight: 300;
+  font-style: oblique;
+  transform: skew(-15deg);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.container a:hover {
+  font-weight: 600;
+  letter-spacing: -.77px;
+}

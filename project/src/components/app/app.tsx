@@ -1,7 +1,7 @@
 import Favorites from '../views/favorites';
 import Login from '../views/login';
 import Main from '../views/main/main';
-import NotFound from '../views/not-found';
+import NotFound from '../views/not-found/not-found';
 import PrivateRoute from './private-route';
 import Room from '../views/room/room';
 import { AppRoute } from '../../const';
