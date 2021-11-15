@@ -4,9 +4,9 @@ import Main from '../views/main/main';
 import NotFound from '../views/not-found';
 import PrivateRoute from './private-route';
 import Room from '../views/room/room';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { fetchOffersAction } from '../../store/api-action';
+import { checkAuthAction, fetchOffersAction } from '../../store/api-action';
 import { generateReviews } from '../../mock/reviews';
 import { setReviews } from '../../store/reducers/app-data/app-data';
 import { useDispatch } from 'react-redux';
@@ -17,6 +17,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchOffersAction());
+    dispatch(checkAuthAction());
     dispatch(setReviews(generateReviews()));
   }, [dispatch]);
 
@@ -38,7 +39,6 @@ function App(): JSX.Element {
         <PrivateRoute
           path={AppRoute.Favorites}
           render={() => <Favorites/>}
-          authorizationStatus={AuthorizationStatus.Auth}
           exact
         />
         <Route>

@@ -1,6 +1,6 @@
 import BookmarkButton from '../../common/bookmark-button';
 import classNames from 'classnames';
-import Header from '../../common/header';
+import Header from '../../common/header/header';
 import Map from '../../common/map/map';
 import NotFound from '../not-found';
 import OfferList from '../../common/offer-list';

@@ -1,4 +1,4 @@
-import Header from '../common/header';
+import Header from '../common/header/header';
 import OfferList from '../common/offer-list';
 import { getOffers } from '../../store/reducers/app-data/selectors';
 import { OfferType } from '../../const';

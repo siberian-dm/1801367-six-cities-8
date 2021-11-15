@@ -1,4 +1,4 @@
-import Header from '../common/header';
+import Header from '../common/header/header';
 import { Link } from 'react-router-dom';
 
 function NotFound():JSX.Element {

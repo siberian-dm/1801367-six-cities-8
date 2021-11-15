@@ -1,4 +1,4 @@
-import Header from '../common/header';
+import Header from '../common/header/header';
 
 function Login(): JSX.Element {
   return (
