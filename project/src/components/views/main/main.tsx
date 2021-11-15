@@ -3,9 +3,9 @@ import Header from '../../common/header';
 import NoOffers from './no-offers';
 import Offers from './offers';
 import TabItem from './tab-item';
-import { CityName, SortingType } from '../../../const';
+import { CityName, SortingType, StringFormat } from '../../../const';
+import { formatString, isValueInEnum, sortOffers } from '../../../utils';
 import { getOffers } from '../../../store/reducers/app-data/selectors';
-import { isValueInEnum, sortOffers } from '../../../utils';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -22,13 +22,16 @@ function Main(): JSX.Element {
   const activeCity = isValueInEnum(city, CityName) ? city : CityName.Paris;
   const activeSorting = isValueInEnum(sorting, SortingType) ? sorting : SortingType.Popular;
 
-  const offersByCity = offers.filter((offer) => offer.city.name === activeCity);
+  const offersByCity = offers.filter((offer) => (
+    offer.city.name === formatString(activeCity, StringFormat.Capitalize)),
+  );
+
   const sortedOffersByCity = sortOffers(offersByCity, activeSorting);
 
   const mainClass = classNames(
     'page__main page__main--index',
     {
-      'page__main--index-empty': !offersByCity.length,
+      'page__main--index-empty': offersByCity.length === 0,
     });
 
   return (

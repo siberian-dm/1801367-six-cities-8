@@ -1,6 +1,6 @@
-import Map from '../../common/map';
+import Map from '../../common/map/map';
 import OfferList from '../../common/offer-list';
-import SortingForm from './sorting-form';
+import SortingForm from './sorting-form/sorting-form';
 import {
   CityName,
   MapType,
@@ -17,7 +17,7 @@ type OffersProps = {
 }
 
 function Offers({ city, sorting, offers }: OffersProps): JSX.Element {
-  const [ ActiveOfferCard, setActiveOfferCard ] = useState<Offer | undefined>();
+  const [ActiveOfferCard, setActiveOfferCard] = useState<Offer | undefined>();
 
   const cityLocation = offers[0].city;
 

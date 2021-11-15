@@ -1,13 +1,18 @@
 import BookmarkButton from '../../common/bookmark-button';
 import classNames from 'classnames';
 import Header from '../../common/header';
-import Map from '../../common/map';
+import Map from '../../common/map/map';
 import NotFound from '../not-found';
 import OfferList from '../../common/offer-list';
 import ReviewForm from './review-form';
 import ReviewItem from './review-item';
-import { BookmarkButtonType, MapType, OfferType } from '../../../const';
-import { calculateRating, capitalizeString } from '../../../utils';
+import {
+  BookmarkButtonType,
+  MapType,
+  OfferType,
+  StringFormat
+} from '../../../const';
+import { calculateRating, formatString } from '../../../utils';
 import { getOffers, getReviews } from '../../../store/reducers/app-data/selectors';
 import { Offer } from '../../../types/hotel';
 import { useParams } from 'react-router-dom';
@@ -31,7 +36,21 @@ function Room(): JSX.Element {
     return <NotFound/>;
   }
 
-  const { city, isPremium, images, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description } = offer;
+  const {
+    city,
+    isPremium,
+    images,
+    title,
+    isFavorite,
+    rating,
+    type,
+    bedrooms,
+    maxAdults,
+    price,
+    goods,
+    host,
+    description,
+  } = offer;
 
   const divHostAvatarClass = classNames(
     'property__avatar-wrapper user__avatar-wrapper',
@@ -74,7 +93,7 @@ function Room(): JSX.Element {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {capitalizeString(type)}
+                  {formatString(type, StringFormat.Capitalize)}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {`${bedrooms} Bedrooms`}
@@ -128,13 +147,21 @@ function Room(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map mapType={MapType.PropertyMap} cityLocation={city} points={offers} selectedPoint={offer}/>
+          <Map
+            mapType={MapType.PropertyMap}
+            cityLocation={city}
+            points={offers}
+            selectedPoint={offer}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OfferList type={OfferType.NearPlaces} offers={nearOffers}/>
+              <OfferList
+                type={OfferType.NearPlaces}
+                offers={nearOffers}
+              />
             </div>
           </section>
         </div>

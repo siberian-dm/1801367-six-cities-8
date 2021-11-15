@@ -29,6 +29,11 @@ export enum BookmarkButtonType {
   Property = 'property',
 }
 
+export enum StringFormat {
+  Capitalize,
+  CamelCase,
+}
+
 export enum DateFormat {
   FullMonthYear = 'MMMM YYYY',
   DigitYearMonthDay = 'YYYY-MM-DD',
@@ -40,17 +45,17 @@ export enum MapType {
 }
 
 export enum SortingType {
-  Popular = 'Popular',
-  PriceLow = 'Price: low to high',
-  PriceHight = 'Price: high to low',
-  TopRated = 'Top rated first',
+  Popular = 'popular',
+  PriceLow = 'price: low to high',
+  PriceHight = 'price: high to low',
+  TopRated = 'top rated first',
 }
 
 export enum CityName {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf',
+  Paris = 'paris',
+  Cologne = 'cologne',
+  Brussels = 'brussels',
+  Amsterdam = 'amsterdam',
+  Hamburg = 'hamburg',
+  Dusseldorf = 'dusseldorf',
 }

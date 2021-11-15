@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import { DateFormat, SortingType } from './const';
+import { camelCase, capitalize } from 'lodash';
+import { DateFormat, SortingType, StringFormat } from './const';
 import { Offer } from './types/hotel';
 
 const MAX_STARS = 5;
@@ -7,9 +8,16 @@ const MAX_RATING = 100;
 
 export const calculateRating = (rating: number): string => `${rating / MAX_STARS * MAX_RATING}%`;
 
-export const capitalizeString = (string: string): string => `${string[0].toUpperCase()}${string.slice(1).toLowerCase()}`;
+export const formatString = (value: string, format: StringFormat): string => {
+  switch (format) {
+    case StringFormat.CamelCase:
+      return camelCase(value);
+    case StringFormat.Capitalize:
+      return capitalize(value);
+  }
+};
 
-export const getHumanizeDate = (date: string, format: DateFormat): string => dayjs(date).format(format);
+export const formatDate = (date: string, format: DateFormat): string => dayjs(date).format(format);
 
 export const sortOffers = (offers: Offer[], sort: SortingType): Offer[] => {
   switch (sort) {

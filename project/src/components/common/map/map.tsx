@@ -1,21 +1,14 @@
-import useMap from '../../hooks/use-map';
-import { City, Offer } from '../../types/hotel';
+import classNames from 'classnames';
+import styles from './map.module.css';
+import useMap from '../../../hooks/use-map';
+import { City, Offer } from '../../../types/hotel';
 import { Icon, Marker } from 'leaflet';
-import { MapType } from '../../const';
+import { MapType } from '../../../const';
 import { useEffect, useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
 
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
-
-const mapStyle = {
-  [MapType.CitiesMap]: {},
-  [MapType.PropertyMap]: {
-    width: '1144px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-};
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -38,7 +31,7 @@ type MapProps = {
 
 function Map({ mapType, cityLocation, points, selectedPoint }: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const [ map, offersLayerGroup ] = useMap(mapRef, cityLocation);
+  const [map, offersLayerGroup] = useMap(mapRef, cityLocation);
 
   useEffect(() => {
     if (map !== null && offersLayerGroup !== null) {
@@ -62,8 +55,13 @@ function Map({ mapType, cityLocation, points, selectedPoint }: MapProps): JSX.El
 
   return (
     <section
-      className={`${mapType} map`}
-      style={mapStyle[mapType]}
+      className={classNames(
+        'map',
+        {
+          'cities__map': mapType === MapType.CitiesMap,
+          [`${styles.map} property__map`]: mapType === MapType.PropertyMap,
+        },
+      )}
       ref={mapRef}
     />
   );

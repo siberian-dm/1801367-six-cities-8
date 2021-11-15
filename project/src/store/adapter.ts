@@ -1,12 +1,13 @@
-import { camelCase } from 'lodash';
+import { StringFormat } from '../const';
+import { formatString } from '../utils';
 
-export const adaptOfferToClient = <T, R>(offer: T): R => {
-  const adaptedOffer = Object.entries(offer)
+export const adaptDataToClient = <T, R>(data: T): R => {
+  const adaptedData = Object.entries(data)
     .reduce(
       (prev, [key, value]) =>  (value !== null && value.constructor === Object)
-        ? {...prev, [camelCase(key)]: adaptOfferToClient(value)}
-        : {...prev, [camelCase(key)]: value},
+        ? {...prev, [formatString(key, StringFormat.CamelCase)]: adaptDataToClient(value)}
+        : {...prev, [formatString(key, StringFormat.CamelCase)]: value},
       {},
     );
-  return adaptedOffer as R;
+  return adaptedData as R;
 };

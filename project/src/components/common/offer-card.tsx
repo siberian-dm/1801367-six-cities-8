@@ -1,7 +1,7 @@
 import BookmarkButton from './bookmark-button';
 import classNames from 'classnames';
-import { BookmarkButtonType, OfferType } from '../../const';
-import { calculateRating, capitalizeString } from '../../utils';
+import { BookmarkButtonType, OfferType, StringFormat } from '../../const';
+import { calculateRating, formatString } from '../../utils';
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/hotel';
 
@@ -79,7 +79,9 @@ function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Elemen
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{capitalizeString(type)}</p>
+        <p className="place-card__type">
+          {formatString(type, StringFormat.Capitalize)}
+        </p>
       </div>
     </article>
   );

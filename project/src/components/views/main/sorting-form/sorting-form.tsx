@@ -1,6 +1,8 @@
 import classNames from 'classnames';
+import styles from './sorting-form.module.css';
+import { CityName, SortingType, StringFormat } from '../../../../const';
+import { formatString } from '../../../../utils';
 import { Link } from 'react-router-dom';
-import { CityName, SortingType } from '../../../const';
 import { useState } from 'react';
 
 type SortingFormProps = {
@@ -9,7 +11,7 @@ type SortingFormProps = {
 }
 
 function SortingForm({ sorting, city }: SortingFormProps): JSX.Element {
-  const [ isSortListOpen, setIsSortListOpen ] = useState(false);
+  const [isSortListOpen, setIsSortListOpen] = useState(false);
 
   const ulClass = classNames(
     'places__options places__options--custom',
@@ -17,12 +19,8 @@ function SortingForm({ sorting, city }: SortingFormProps): JSX.Element {
       'places__options--opened': isSortListOpen,
     });
 
-  const handleSpanClick = () => {
-    setIsSortListOpen(!isSortListOpen);
-  };
-
-  const handleLinkClick = () => {
-    setIsSortListOpen(false);
+  const handleSortClick = () => {
+    setIsSortListOpen((prev) => !prev);
   };
 
   return (
@@ -31,9 +29,9 @@ function SortingForm({ sorting, city }: SortingFormProps): JSX.Element {
       <span
         className="places__sorting-type"
         tabIndex={0}
-        onClick={handleSpanClick}
+        onClick={handleSortClick}
       >
-        {sorting}
+        {formatString(sorting, StringFormat.Capitalize)}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -42,22 +40,17 @@ function SortingForm({ sorting, city }: SortingFormProps): JSX.Element {
         {Object.values(SortingType).map((sortingItem) => (
           <li key={sortingItem}
             className={classNames(
-              'places__option',
+              `${styles.option} places__option`,
               {
                 'places__option--active': sortingItem === sorting,
               })}
-            style={{padding: '0px'}}
             tabIndex={0}
           >
             <Link
-              style={{
-                display: 'block',
-                padding: '14px 16px 10px',
-              }}
               to={`/${city}/offers/${sortingItem}`}
-              onClick={handleLinkClick}
+              onClick={handleSortClick}
             >
-              {sortingItem}
+              {formatString(sortingItem, StringFormat.Capitalize)}
             </Link>
           </li>
         ))}
