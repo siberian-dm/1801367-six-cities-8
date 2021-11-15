@@ -40,8 +40,8 @@ export enum DateFormat {
 }
 
 export enum MapType {
-  CitiesMap = 'cities__map',
-  PropertyMap = 'property__map',
+  CitiesMap,
+  PropertyMap,
 }
 
 export enum SortingType {
