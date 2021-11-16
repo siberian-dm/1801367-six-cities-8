@@ -1,4 +1,4 @@
-import { calculateRating, getHumanizeDate } from '../../../utils';
+import { calculateRating, formatDate } from '../../../utils';
 import { DateFormat } from '../../../const';
 import { Review } from '../../../types/comment';
 
@@ -31,9 +31,9 @@ function ReviewItem({ review }: ReviewItemProps): JSX.Element {
         </p>
         <time
           className="reviews__time"
-          dateTime={getHumanizeDate(date, DateFormat.DigitYearMonthDay)}
+          dateTime={formatDate(date, DateFormat.DigitYearMonthDay)}
         >
-          {getHumanizeDate(date, DateFormat.FullMonthYear)}
+          {formatDate(date, DateFormat.FullMonthYear)}
         </time>
       </div>
     </li>

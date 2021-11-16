@@ -6,6 +6,12 @@ export enum AppRoute {
   Offers = '/:city/offers/:sorting',
 }
 
+export enum APIRoute {
+  Hotels = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export enum AuthorizationStatus {
   Auth,
   NoAuth,
@@ -23,19 +29,33 @@ export enum BookmarkButtonType {
   Property = 'property',
 }
 
+export enum StringFormat {
+  Capitalize,
+  CamelCase,
+}
+
 export enum DateFormat {
   FullMonthYear = 'MMMM YYYY',
   DigitYearMonthDay = 'YYYY-MM-DD',
 }
 
 export enum MapType {
-  CitiesMap = 'cities__map',
-  PropertyMap = 'property__map',
+  CitiesMap,
+  PropertyMap,
 }
 
 export enum SortingType {
-  Popular = 'Popular',
-  PriceLow = 'Price: low to high',
-  PriceHight = 'Price: high to low',
-  TopRated = 'Top rated first',
+  Popular = 'popular',
+  PriceLow = 'price: low to high',
+  PriceHight = 'price: high to low',
+  TopRated = 'top rated first',
+}
+
+export enum CityName {
+  Paris = 'paris',
+  Cologne = 'cologne',
+  Brussels = 'brussels',
+  Amsterdam = 'amsterdam',
+  Hamburg = 'hamburg',
+  Dusseldorf = 'dusseldorf',
 }

@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import { City } from '../../../types/city';
+import { CityName, SortingType, StringFormat } from '../../../const';
+import { formatString } from '../../../utils';
 import { Link } from 'react-router-dom';
-import { SortingType } from '../../../const';
 
 type TabItemProps = {
-  city: City;
+  city: CityName;
   isChecked: boolean;
   sorting: SortingType;
 }
@@ -23,7 +23,7 @@ function TabItem({ city, isChecked, sorting }: TabItemProps): JSX.Element {
         className={linkClass}
         to={`/${city}/offers/${sorting}`}
       >
-        <span>{city}</span>
+        <span>{formatString(city, StringFormat.Capitalize)}</span>
       </Link>
     </li>
   );
