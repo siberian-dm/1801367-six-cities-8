@@ -1,11 +1,13 @@
 import { adaptDataToClient } from './adapter';
 import { APIRoute, AppRoute, AuthStatus } from '../const';
-import { dropToken, saveToken, Token } from '../services/token';
+import { AuthInfo } from '../types/auth-info';
+import { dropToken, saveToken } from '../services/token';
 import {
   loadOffers,
   redirectToRoute,
   requireLogout,
-  setAuthStatus
+  setAuthStatus,
+  setUserEmail
 } from './action';
 import { ThunkActionResult } from '../types/action';
 import { toast } from 'react-toastify';
@@ -30,16 +32,20 @@ export const fetchOffersAction = (): ThunkActionResult =>
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.get(APIRoute.Login);
+    const { data } = await api.get<AuthInfo>(APIRoute.Login);
+
+    dispatch(setUserEmail(data.email));
     dispatch(setAuthStatus(AuthStatus.Auth));
   };
 
 export const loginAction = ({ email, password }: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      const { data } = await api.post<{token: Token}>(APIRoute.Login, {email, password});
+      const { data } = await api.post<AuthInfo>(APIRoute.Login, {email, password});
+
       saveToken(data.token);
       dispatch(setAuthStatus(AuthStatus.Auth));
+      dispatch(setUserEmail(data.email));
       dispatch(redirectToRoute(AppRoute.Root));
     }
     catch (error) {

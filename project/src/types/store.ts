@@ -15,6 +15,7 @@ export interface AppDataState {
 }
 
 export interface UserDataState {
+  email: string | null;
   authStatus: AuthStatus;
 }
 

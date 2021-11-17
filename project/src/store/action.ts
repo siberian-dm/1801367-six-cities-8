@@ -29,6 +29,13 @@ export const setAuthStatus = createAction(
   }),
 );
 
+export const setUserEmail = createAction(
+  ActionType.setUserEmail,
+  (email: string) => ({
+    payload: email,
+  }),
+);
+
 export const requireLogout = createAction(ActionType.RequireLogout);
 
 export const redirectToRoute = createAction(

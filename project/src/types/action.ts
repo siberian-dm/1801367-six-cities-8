@@ -7,6 +7,7 @@ export enum ActionType {
   loadOffers = 'data/loadOffers',
   loadReviews = 'data/loadReviews',
   setAuthStatus = 'user/setAuthStatus',
+  setUserEmail = 'user/setUserEmail',
   RequireLogout = 'user/requireLogout',
 }
 

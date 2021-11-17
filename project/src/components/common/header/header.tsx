@@ -1,7 +1,7 @@
 import Navigation from './navigation';
 import NavigationNotLogged from './navigation-not-logged';
 import { AuthStatus } from '../../../const';
-import { getAuthStatus } from '../../../store/reducers/user-data/selectors';
+import { getAuthStatus, getUserEmail } from '../../../store/reducers/user-data/selectors';
 import { useSelector } from 'react-redux';
 
 type HeaderProps = {
@@ -10,6 +10,7 @@ type HeaderProps = {
 
 function Header({ isShowNavigation = true }: HeaderProps): JSX.Element {
   const authStatus = useSelector(getAuthStatus);
+  const userEmail = useSelector(getUserEmail);
 
   return (
     <header className="header">
@@ -20,9 +21,9 @@ function Header({ isShowNavigation = true }: HeaderProps): JSX.Element {
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </a>
           </div>
-          {isShowNavigation && (
-            authStatus === AuthStatus.Auth
-              ? <Navigation/>
+          {(isShowNavigation) && (
+            authStatus === AuthStatus.Auth && userEmail !== null
+              ? <Navigation userEmail={userEmail}/>
               : <NavigationNotLogged/>
           )}
         </div>
