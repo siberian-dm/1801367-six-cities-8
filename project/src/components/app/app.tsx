@@ -1,3 +1,4 @@
+import browserHistory from '../../browser-history';
 import Favorites from '../views/favorites';
 import Login from '../views/login';
 import Main from '../views/main/main';
@@ -5,24 +6,11 @@ import NotFound from '../views/not-found/not-found';
 import PrivateRoute from './private-route';
 import Room from '../views/room/room';
 import { AppRoute } from '../../const';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { checkAuthAction, fetchOffersAction } from '../../store/api-action';
-import { generateReviews } from '../../mock/reviews';
-import { setReviews } from '../../store/reducers/app-data/app-data';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { Route, Router, Switch } from 'react-router-dom';
 
 function App(): JSX.Element {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchOffersAction());
-    dispatch(checkAuthAction());
-    dispatch(setReviews(generateReviews()));
-  }, [dispatch]);
-
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
         <Route path={AppRoute.Root} exact>
           <Main/>
@@ -45,7 +33,7 @@ function App(): JSX.Element {
           <NotFound/>
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 

@@ -1,15 +1,23 @@
 import { adaptDataToClient } from './adapter';
-import { APIRoute, AuthorizationStatus } from '../const';
-import { loadOffers, setIsDataLoading } from './reducers/app-data/app-data';
-import { setAuthorizationStatus } from './reducers/user-data/user-data';
+import { APIRoute, AppRoute, AuthStatus } from '../const';
+import { dropToken, saveToken, Token } from '../services/token';
+import {
+  loadOffers,
+  redirectToRoute,
+  requireLogout,
+  setAuthStatus
+} from './action';
 import { ThunkActionResult } from '../types/action';
 import { toast } from 'react-toastify';
+
+type AuthData = {
+  email: string;
+  password: string;
+}
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      dispatch(setIsDataLoading(true));
-
       const { data } = await api.get(APIRoute.Hotels);
       const adapteddata = data.map(adaptDataToClient);
 
@@ -18,13 +26,30 @@ export const fetchOffersAction = (): ThunkActionResult =>
     catch (error) {
       toast.error(String(error));
     }
-    finally {
-      dispatch(setIsDataLoading(false));
-    }
   };
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     await api.get(APIRoute.Login);
-    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
+    dispatch(setAuthStatus(AuthStatus.Auth));
+  };
+
+export const loginAction = ({ email, password }: AuthData): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    try {
+      const { data } = await api.post<{token: Token}>(APIRoute.Login, {email, password});
+      saveToken(data.token);
+      dispatch(setAuthStatus(AuthStatus.Auth));
+      dispatch(redirectToRoute(AppRoute.Root));
+    }
+    catch (error) {
+      toast.error(String(error));
+    }
+  };
+
+export const logoutAction = (): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    api.delete(APIRoute.Logout);
+    dropToken();
+    dispatch(requireLogout());
   };

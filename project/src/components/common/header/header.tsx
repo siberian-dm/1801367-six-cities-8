@@ -1,7 +1,7 @@
 import Navigation from './navigation';
 import NavigationNotLogged from './navigation-not-logged';
-import { AuthorizationStatus } from '../../../const';
-import { getAuthorizationStatus } from '../../../store/reducers/user-data/selectors';
+import { AuthStatus } from '../../../const';
+import { getAuthStatus } from '../../../store/reducers/user-data/selectors';
 import { useSelector } from 'react-redux';
 
 type HeaderProps = {
@@ -9,7 +9,7 @@ type HeaderProps = {
 }
 
 function Header({ isShowNavigation = true }: HeaderProps): JSX.Element {
-  const аuthorizationStatus = useSelector(getAuthorizationStatus);
+  const authStatus = useSelector(getAuthStatus);
 
   return (
     <header className="header">
@@ -21,7 +21,7 @@ function Header({ isShowNavigation = true }: HeaderProps): JSX.Element {
             </a>
           </div>
           {isShowNavigation && (
-            аuthorizationStatus === AuthorizationStatus.Auth
+            authStatus === AuthStatus.Auth
               ? <Navigation/>
               : <NavigationNotLogged/>
           )}

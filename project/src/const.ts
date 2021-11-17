@@ -12,10 +12,10 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
-export enum AuthorizationStatus {
-  Auth,
-  NoAuth,
-  Unknown,
+export enum AuthStatus {
+  Auth = 'auth',
+  NoAuth = 'noAuth',
+  Unknown = 'unknown',
 }
 
 export enum OfferType {
