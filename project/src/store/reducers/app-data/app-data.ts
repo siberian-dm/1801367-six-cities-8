@@ -1,30 +1,26 @@
-import { AppDataState, DataType } from '../../../types/store';
-import { createSlice } from '@reduxjs/toolkit';
+import { AppDataState } from '../../../types/store';
+import { createReducer } from '@reduxjs/toolkit';
+import { loadOffers, loadReviews } from '../../action';
 
 const initialState: AppDataState = {
   offers: [],
   reviews: [],
-  isDataLoading: false,
+  isDataLoaded: false,
 };
 
-const appData = createSlice({
-  name: DataType.App,
-  initialState: initialState,
-  reducers: {
-    setIsDataLoading(state, action) {
-      state.isDataLoading = action.payload;
-    },
-    loadOffers(state, action) {
-      state.offers = action.payload;
-    },
-    setReviews(state, action) {
-      state.reviews = action.payload;
-    },
-  },
+const appData = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadOffers, (state, action) => {
+      const { offers } = action.payload;
+
+      state.offers = offers;
+      state.isDataLoaded = true;
+    })
+    .addCase(loadReviews, (state, action) => {
+      const { reviews } = action.payload;
+
+      state.reviews = reviews;
+    });
 });
 
-const { actions, reducer } = appData;
-
-export const { setIsDataLoading, loadOffers, setReviews } = actions;
-
-export default reducer;
+export default appData;

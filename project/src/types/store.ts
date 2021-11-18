@@ -1,7 +1,7 @@
 import { Offer } from './hotel';
 import { Review } from './comment';
 import { RootState } from '../store/root-reducer';
-import { AuthorizationStatus } from '../const';
+import { AuthStatus } from '../const';
 
 export enum DataType {
   App = 'APP',
@@ -11,11 +11,12 @@ export enum DataType {
 export interface AppDataState {
   offers: Offer[] | [];
   reviews: Review[] | [];
-  isDataLoading: boolean;
+  isDataLoaded: boolean;
 }
 
 export interface UserDataState {
-  authorizationStatus: AuthorizationStatus;
+  email: string | null;
+  authStatus: AuthStatus;
 }
 
 export type State = RootState;

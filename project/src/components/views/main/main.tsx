@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import Header from '../../common/header';
+import Header from '../../common/header/header';
 import NoOffers from './no-offers';
 import Offers from './offers';
 import TabItem from './tab-item';
