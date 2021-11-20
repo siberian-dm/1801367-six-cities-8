@@ -3,8 +3,8 @@ import { LayerGroup, Map, TileLayer } from 'leaflet';
 import { MutableRefObject, useEffect, useState } from 'react';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, cityLocation: City): [Map | null, LayerGroup | null] {
-  const [ map, setMap ] = useState<Map | null>(null);
-  const [ offersLayerGroup, setOffersLayerGroup ] = useState<LayerGroup | null>(null);
+  const [map, setMap] = useState<Map | null>(null);
+  const [offersLayerGroup, setOffersLayerGroup] = useState<LayerGroup | null>(null);
   const { location } = cityLocation;
 
   useEffect(() => {

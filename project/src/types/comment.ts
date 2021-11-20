@@ -12,7 +12,3 @@ export interface Review {
   rating: number;
   user: User;
 }
-
-export interface Reviews {
-  reviews: Review[];
-}

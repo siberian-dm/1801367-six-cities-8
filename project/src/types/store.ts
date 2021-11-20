@@ -20,4 +20,3 @@ export interface UserDataState {
 }
 
 export type State = RootState;
-

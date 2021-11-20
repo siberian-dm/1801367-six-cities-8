@@ -29,7 +29,3 @@ export interface Offer {
   title: string;
   type: string;
 }
-
-export interface Offers {
-  offers: Offer[];
-}

@@ -13,7 +13,6 @@ import { rootReducer } from './store/root-reducer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const api = createAPI(
   () => store.dispatch(setAuthStatus(AuthStatus.NoAuth)),
 );

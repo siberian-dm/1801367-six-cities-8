@@ -21,9 +21,9 @@ export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
       const { data } = await api.get(APIRoute.Hotels);
-      const adapteddata = data.map(adaptDataToClient);
+      const adaptedData = data.map(adaptDataToClient);
 
-      dispatch(loadOffers(adapteddata));
+      dispatch(loadOffers(adaptedData));
     }
     catch (error) {
       toast.error(String(error));
