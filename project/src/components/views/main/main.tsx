@@ -2,36 +2,17 @@ import classNames from 'classnames';
 import Header from '../../common/header/header';
 import NoOffers from './no-offers';
 import Offers from './offers';
-import TabItem from './tab-item';
-import { CityName, SortingType, StringFormat } from '../../../const';
-import { formatString, isValueInEnum, sortOffers } from '../../../utils';
-import { getOffers } from '../../../store/reducers/app-data/selectors';
-import { useParams } from 'react-router-dom';
+import TabList from './tab-list';
+import { getIsAnyOffersByCity } from '../../../store/reducers/app-data/selectors';
 import { useSelector } from 'react-redux';
 
-type MainParams = {
-  city: CityName;
-  sorting: SortingType;
-}
-
 function Main(): JSX.Element {
-  const { city, sorting }: MainParams = useParams();
-
-  const offers = useSelector(getOffers);
-
-  const activeCity = isValueInEnum(city, CityName) ? city : CityName.Paris;
-  const activeSorting = isValueInEnum(sorting, SortingType) ? sorting : SortingType.Popular;
-
-  const offersByCity = offers.filter((offer) => (
-    offer.city.name === formatString(activeCity, StringFormat.Capitalize)),
-  );
-
-  const sortedOffersByCity = sortOffers(offersByCity, activeSorting);
+  const isAnyOffersByCity = useSelector(getIsAnyOffersByCity);
 
   const mainClass = classNames(
     'page__main page__main--index',
     {
-      'page__main--index-empty': offersByCity.length === 0,
+      'page__main--index-empty': !isAnyOffersByCity,
     });
 
   return (
@@ -39,29 +20,11 @@ function Main(): JSX.Element {
       <Header/>
       <main className={mainClass}>
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {Object.values(CityName).map((cityItem) => (
-                <TabItem
-                  key={cityItem}
-                  city={cityItem}
-                  isChecked={cityItem === activeCity}
-                  sorting={activeSorting}
-                />
-              ))}
-            </ul>
-          </section>
-        </div>
+        <TabList/>
         <div className="cities">
-          {offersByCity.length
-            ?
-            <Offers
-              sorting={activeSorting}
-              city={activeCity}
-              offers={sortedOffersByCity}
-            />
-            : <NoOffers city={activeCity}/>}
+          {isAnyOffersByCity
+            ? <Offers/>
+            : <NoOffers/>}
         </div>
       </main>
     </div>

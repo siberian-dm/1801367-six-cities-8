@@ -1,15 +1,16 @@
 import classNames from 'classnames';
-import { CityName, SortingType, StringFormat } from '../../../const';
+import { CityName, StringFormat } from '../../../const';
 import { formatString } from '../../../utils';
 import { Link } from 'react-router-dom';
+import { setActiveCity } from '../../../store/action';
+import { useDispatch } from 'react-redux';
 
 type TabItemProps = {
   city: CityName;
   isChecked: boolean;
-  sorting: SortingType;
 }
 
-function TabItem({ city, isChecked, sorting }: TabItemProps): JSX.Element {
+function TabItem({ city, isChecked }: TabItemProps): JSX.Element {
   const linkClass = classNames(
     'locations__item-link tabs__item',
     {
@@ -17,11 +18,18 @@ function TabItem({ city, isChecked, sorting }: TabItemProps): JSX.Element {
     },
   );
 
+  const dispatch = useDispatch();
+
+  const handleLinkClick = () => {
+    dispatch(setActiveCity(city));
+  };
+
   return (
     <li className="locations__item">
       <Link
         className={linkClass}
-        to={`/${city}/offers/${sorting}`}
+        to="/"
+        onClick={handleLinkClick}
       >
         <span>{formatString(city, StringFormat.Capitalize)}</span>
       </Link>
