@@ -1,11 +1,14 @@
+import { ChangeEvent } from 'react';
+
 type RatingInputProps = {
   value: string;
   title: string;
   isDisabled: boolean;
   isChecked: boolean;
+  onRatingChange: (evt: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function RadioInput({ value, title, isDisabled, isChecked }: RatingInputProps): JSX.Element {
+function RadioInput({ value, title, isDisabled, isChecked, onRatingChange }: RatingInputProps): JSX.Element {
   return (
     <>
       <input
@@ -16,6 +19,7 @@ function RadioInput({ value, title, isDisabled, isChecked }: RatingInputProps): 
         type="radio"
         disabled={isDisabled}
         checked={isChecked}
+        onChange={onRatingChange}
       />
       <label
         htmlFor={`${value}-stars`}

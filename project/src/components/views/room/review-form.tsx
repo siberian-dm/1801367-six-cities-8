@@ -32,7 +32,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
     setRating(evt.target.value);
   };
 
-  const handleTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>): void => {
+  const handleCommentTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>): void => {
     setComment(evt.target.value);
   };
 
@@ -57,7 +57,7 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <div className="reviews__rating-form form__rating" onChange={handleRatingInputChange}>
+      <div className="reviews__rating-form form__rating">
         {Object.entries(Ratings).reverse()
           .map(([value, title]) => (
             <RadioInput
@@ -66,13 +66,14 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
               title={title}
               isDisabled={isPostingReview}
               isChecked={value === rating}
+              onRatingChange={handleRatingInputChange}
             />
           ))}
       </div>
       <textarea
         minLength={MIN_COMMENT_LENGTH}
         maxLength={MAX_COMMENT_LENGTH}
-        onChange={handleTextareaChange}
+        onChange={handleCommentTextareaChange}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
