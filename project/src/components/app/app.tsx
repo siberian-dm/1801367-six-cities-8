@@ -6,7 +6,7 @@ import NotFound from '../views/not-found/not-found';
 import PrivateRoute from './private-route';
 import Room from '../views/room/room';
 import { AppRoute } from '../../const';
-import { Route, Router, Switch } from 'react-router-dom';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
 
 function App(): JSX.Element {
   return (
@@ -24,13 +24,16 @@ function App(): JSX.Element {
         <Route path={AppRoute.Offer} exact>
           <Room/>
         </Route>
+        <Route path={AppRoute.NotFound} exact>
+          <NotFound/>
+        </Route>
         <PrivateRoute
           path={AppRoute.Favorites}
           render={() => <Favorites/>}
           exact
         />
         <Route>
-          <NotFound/>
+          <Redirect to={AppRoute.NotFound}/>
         </Route>
       </Switch>
     </Router>

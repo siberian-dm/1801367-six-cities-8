@@ -5,14 +5,12 @@ import { AuthStatus } from './const';
 import { checkAuthAction, fetchOffersAction } from './store/api-action';
 import { configureStore } from '@reduxjs/toolkit';
 import { createAPI } from './services/api';
-import { generateReviews } from './mock/reviews';
-import { loadReviews, setAuthStatus } from './store/action';
+import { setAuthStatus } from './store/action';
 import { Provider } from 'react-redux';
 import { redirect } from './store/middlewares/redirect';
 import { rootReducer } from './store/root-reducer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 const api = createAPI(
   () => store.dispatch(setAuthStatus(AuthStatus.NoAuth)),
@@ -30,7 +28,6 @@ const store = configureStore({
 
 store.dispatch(checkAuthAction());
 store.dispatch(fetchOffersAction());
-store.dispatch(loadReviews(generateReviews()));
 
 ReactDOM.render(
   <React.StrictMode>

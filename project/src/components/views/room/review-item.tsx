@@ -1,9 +1,10 @@
+import { AppReview } from '../../../types/app-data';
 import { calculateRating, formatDate } from '../../../utils';
 import { DateFormat } from '../../../const';
-import { Review } from '../../../types/comment';
+
 
 type ReviewItemProps = {
-  review: Review;
+  review: AppReview;
 }
 
 function ReviewItem({ review }: ReviewItemProps): JSX.Element {

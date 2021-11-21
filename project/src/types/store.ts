@@ -1,16 +1,15 @@
-import { Offer } from './hotel';
-import { Review } from './comment';
-import { RootState } from '../store/root-reducer';
+import { AppOffer, AppReview } from './app-data';
 import { AuthStatus } from '../const';
+import { RootState } from '../store/root-reducer';
 
 export enum DataType {
   App = 'APP',
   User = 'USER',
+  Room = 'ROOM',
 }
 
 export interface AppDataState {
-  offers: Offer[] | [];
-  reviews: Review[] | [];
+  offers: AppOffer[] | [];
   isDataLoaded: boolean;
 }
 
@@ -19,5 +18,12 @@ export interface UserDataState {
   authStatus: AuthStatus;
 }
 
-export type State = RootState;
+export interface RoomDataState {
+  offerById: AppOffer | null;
+  nearbyOffersById: AppOffer[] | [];
+  reviewsById: AppReview[] | [];
+  isRoomDataLoaded: boolean;
+  isPostingReview: boolean;
+}
 
+export type State = RootState;

@@ -1,12 +1,18 @@
 import { adaptDataToClient } from './adapter';
 import { APIRoute, AppRoute, AuthStatus } from '../const';
-import { AuthInfo } from '../types/auth-info';
+import { AppOffer } from '../types/app-data';
+import { AuthInfo, ServerOffer } from '../types/server-data';
 import { dropToken, saveToken } from '../services/token';
 import {
+  loadNearbyOffersById,
+  loadOfferById,
   loadOffers,
+  loadReviewsById,
   redirectToRoute,
   requireLogout,
   setAuthStatus,
+  setIsPostingReview,
+  setIsRoomDataLoaded,
   setUserEmail
 } from './action';
 import { ThunkActionResult } from '../types/action';
@@ -17,16 +23,70 @@ type AuthData = {
   password: string;
 }
 
+type ReviewPost = {
+  id: number;
+  comment: string;
+  rating: number;
+}
+
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
       const { data } = await api.get(APIRoute.Hotels);
-      const adapteddata = data.map(adaptDataToClient);
+      const adaptedData = data.map(adaptDataToClient);
 
-      dispatch(loadOffers(adapteddata));
+      dispatch(loadOffers(adaptedData));
     }
     catch (error) {
       toast.error(String(error));
+    }
+  };
+
+export const fetchRoomDataById = (id: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      dispatch(setIsRoomDataLoaded(false));
+
+      const [
+        {data: offer},
+        {data: nearbyOffers},
+        {data: reviews},
+      ] = await Promise.all([
+        api.get(`${APIRoute.Hotels}/${id}`),
+        api.get(`${APIRoute.Hotels}/${id}/nearby`),
+        api.get(`${APIRoute.Comments}/${id}`),
+      ]);
+
+      const adaptedOffer = adaptDataToClient<ServerOffer, AppOffer>(offer);
+      const adaptedNearbyOffers = nearbyOffers.map(adaptDataToClient);
+      const adaptedReviews = reviews.map(adaptDataToClient);
+
+      dispatch(loadOfferById(adaptedOffer));
+      dispatch(loadNearbyOffersById(adaptedNearbyOffers));
+      dispatch(loadReviewsById(adaptedReviews));
+    }
+    catch (error) {
+      toast.error(String(error));
+    }
+    finally {
+      dispatch(setIsRoomDataLoaded(true));
+    }
+  };
+
+export const postReviewAction = ({id, comment, rating}: ReviewPost): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      dispatch(setIsPostingReview(true));
+      const { data } = await api.post(`${APIRoute.Comments}/${id}`, {comment, rating});
+
+      const adaptedReviews = data.map(adaptDataToClient);
+      dispatch(loadReviewsById(adaptedReviews));
+    }
+    catch (error) {
+      toast.error(String(error));
+    }
+    finally {
+      dispatch(setIsPostingReview(false));
     }
   };
 
