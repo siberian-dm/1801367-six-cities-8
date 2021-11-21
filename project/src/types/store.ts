@@ -23,6 +23,7 @@ export interface RoomDataState {
   nearbyOffersById: AppOffer[] | [];
   reviewsById: AppReview[] | [];
   isRoomDataLoaded: boolean;
+  isPostingReview: boolean;
 }
 
 export type State = RootState;

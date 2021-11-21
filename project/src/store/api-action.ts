@@ -4,11 +4,14 @@ import { AppOffer } from '../types/app-data';
 import { AuthInfo, ServerOffer } from '../types/server-data';
 import { dropToken, saveToken } from '../services/token';
 import {
+  loadNearbyOffersById,
+  loadOfferById,
   loadOffers,
-  loadRoomDataById,
+  loadReviewsById,
   redirectToRoute,
   requireLogout,
   setAuthStatus,
+  setIsPostingReview,
   setIsRoomDataLoaded,
   setUserEmail
 } from './action';
@@ -18,6 +21,12 @@ import { toast } from 'react-toastify';
 type AuthData = {
   email: string;
   password: string;
+}
+
+type ReviewPost = {
+  id: number;
+  comment: string;
+  rating: number;
 }
 
 export const fetchOffersAction = (): ThunkActionResult =>
@@ -33,7 +42,7 @@ export const fetchOffersAction = (): ThunkActionResult =>
     }
   };
 
-export const fetchRoomDataById = (id: string): ThunkActionResult =>
+export const fetchRoomDataById = (id: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
       dispatch(setIsRoomDataLoaded(false));
@@ -52,17 +61,32 @@ export const fetchRoomDataById = (id: string): ThunkActionResult =>
       const adaptedNearbyOffers = nearbyOffers.map(adaptDataToClient);
       const adaptedReviews = reviews.map(adaptDataToClient);
 
-      dispatch(loadRoomDataById({
-        offer: adaptedOffer,
-        nearbyOffers: adaptedNearbyOffers,
-        reviews: adaptedReviews,
-      }));
+      dispatch(loadOfferById(adaptedOffer));
+      dispatch(loadNearbyOffersById(adaptedNearbyOffers));
+      dispatch(loadReviewsById(adaptedReviews));
     }
     catch (error) {
       toast.error(String(error));
     }
     finally {
       dispatch(setIsRoomDataLoaded(true));
+    }
+  };
+
+export const postReviewAction = ({id, comment, rating}: ReviewPost): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      dispatch(setIsPostingReview(true));
+      const { data } = await api.post(`${APIRoute.Comments}/${id}`, {comment, rating});
+
+      const adaptedReviews = data.map(adaptDataToClient);
+      dispatch(loadReviewsById(adaptedReviews));
+    }
+    catch (error) {
+      toast.error(String(error));
+    }
+    finally {
+      dispatch(setIsPostingReview(false));
     }
   };
 

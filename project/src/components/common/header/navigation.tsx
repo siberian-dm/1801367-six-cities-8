@@ -1,6 +1,6 @@
 import { AppRoute } from '../../../const';
 import { Link } from 'react-router-dom';
-import { requireLogout } from '../../../store/action';
+import { logoutAction } from '../../../store/api-action';
 import { useDispatch } from 'react-redux';
 
 type NavigationProps = {
@@ -11,7 +11,7 @@ function Navigation({ userEmail }: NavigationProps): JSX.Element {
   const dispatch = useDispatch();
 
   const handleLinkClick = () => {
-    dispatch(requireLogout());
+    dispatch(logoutAction());
   };
 
   return (

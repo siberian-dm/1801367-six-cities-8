@@ -17,7 +17,7 @@ function Room(): JSX.Element {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchRoomDataById(id));
+    dispatch(fetchRoomDataById(+id));
   }, [dispatch, id]);
 
   return (

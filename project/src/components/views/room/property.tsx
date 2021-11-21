@@ -6,12 +6,14 @@ import ReviewForm from './review-form';
 import ReviewItem from './review-item';
 import {
   AppRoute,
+  AuthStatus,
   BookmarkButtonType,
   MapType,
   OfferType,
   StringFormat
 } from '../../../const';
 import { calculateRating, formatString } from '../../../utils';
+import { getAuthStatus } from '../../../store/reducers/user-data/selectors';
 import { getNearbyOffersById, getOfferById, getReviewsById } from '../../../store/reducers/room-data/selectors';
 import { Redirect } from 'react-router';
 import { useSelector } from 'react-redux';
@@ -20,12 +22,14 @@ function Property(): JSX.Element {
   const offer = useSelector(getOfferById);
   const reviews = useSelector(getReviewsById);
   const nearbyOffers = useSelector(getNearbyOffersById);
+  const authStatus = useSelector(getAuthStatus);
 
   if (!offer) {
     return <Redirect to={AppRoute.NotFound}/>;
   }
 
   const {
+    id,
     city,
     isPremium,
     images,
@@ -130,7 +134,7 @@ function Property(): JSX.Element {
                   />
                 ))}
               </ul>
-              <ReviewForm/>
+              {authStatus === AuthStatus.Auth && <ReviewForm offerId={id}/>}
             </section>
           </div>
         </div>

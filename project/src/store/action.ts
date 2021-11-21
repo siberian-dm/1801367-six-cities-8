@@ -1,10 +1,10 @@
-import { ActionType, RoomData } from '../types/action';
-import { AppOffer } from '../types/app-data';
+import { ActionType } from '../types/action';
+import { AppOffer, AppReview } from '../types/app-data';
 import { AppRoute, AuthStatus } from '../const';
 import { createAction } from '@reduxjs/toolkit';
 
 export const loadOffers = createAction(
-  ActionType.loadOffers,
+  ActionType.LoadOffers,
   (offers: AppOffer[]) => ({
     payload: {
       offers,
@@ -12,29 +12,56 @@ export const loadOffers = createAction(
   }),
 );
 
-export const loadRoomDataById = createAction(
-  ActionType.loadRoomDataById,
-  (roomData: RoomData) => ({
-    payload: roomData,
+export const loadOfferById = createAction(
+  ActionType.LoadOfferById,
+  (offer: AppOffer) => ({
+    payload: {
+      offer,
+    },
+  }),
+);
+
+export const loadNearbyOffersById = createAction(
+  ActionType.LoadNearbyOffersById,
+  (offers: AppOffer[]) => ({
+    payload: {
+      offers,
+    },
+  }),
+);
+
+export const loadReviewsById = createAction(
+  ActionType.LoadReviewsById,
+  (reviews: AppReview[]) => ({
+    payload: {
+      reviews,
+    },
   }),
 );
 
 export const setIsRoomDataLoaded = createAction(
-  ActionType.setIsRoomDataLoaded,
-  (isLoading: boolean) => ({
-    payload: isLoading,
+  ActionType.SetIsRoomDataLoaded,
+  (isRoomDataLoaded: boolean) => ({
+    payload: isRoomDataLoaded,
+  }),
+);
+
+export const setIsPostingReview = createAction(
+  ActionType.SetIsPostingReview,
+  (isPostingReview: boolean) => ({
+    payload: isPostingReview,
   }),
 );
 
 export const setAuthStatus = createAction(
-  ActionType.setAuthStatus,
+  ActionType.SetAuthStatus,
   (authStatus: AuthStatus) => ({
     payload: authStatus,
   }),
 );
 
 export const setUserEmail = createAction(
-  ActionType.setUserEmail,
+  ActionType.SetUserEmail,
   (email: string) => ({
     payload: email,
   }),
