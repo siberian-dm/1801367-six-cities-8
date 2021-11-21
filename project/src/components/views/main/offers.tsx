@@ -1,27 +1,27 @@
 import Map from '../../common/map/map';
 import OfferList from '../../common/offer-list';
 import SortingForm from './sorting-form/sorting-form';
+import { AppOffer } from '../../../types/app-data';
 import {
   CityName,
   MapType,
   OfferType,
   SortingType
 } from '../../../const';
-import { Offer } from '../../../types/hotel';
 import { useState } from 'react';
 
 type OffersProps = {
   city: CityName;
   sorting: SortingType;
-  offers: Offer[];
+  offers: AppOffer[];
 }
 
 function Offers({ city, sorting, offers }: OffersProps): JSX.Element {
-  const [ActiveOfferCard, setActiveOfferCard] = useState<Offer | undefined>();
+  const [ActiveOfferCard, setActiveOfferCard] = useState<AppOffer | undefined>();
 
   const cityLocation = offers[0].city;
 
-  const handleOfferCardHover = (offerCard: Offer) => (): void => {
+  const handleOfferCardHover = (offerCard: AppOffer) => (): void => {
     setActiveOfferCard(offerCard);
   };
 

@@ -1,12 +1,15 @@
 import { adaptDataToClient } from './adapter';
 import { APIRoute, AppRoute, AuthStatus } from '../const';
-import { AuthInfo } from '../types/auth-info';
+import { AppOffer } from '../types/app-data';
+import { AuthInfo, ServerOffer } from '../types/server-data';
 import { dropToken, saveToken } from '../services/token';
 import {
   loadOffers,
+  loadRoomDataById,
   redirectToRoute,
   requireLogout,
   setAuthStatus,
+  setIsRoomDataLoaded,
   setUserEmail
 } from './action';
 import { ThunkActionResult } from '../types/action';
@@ -27,6 +30,39 @@ export const fetchOffersAction = (): ThunkActionResult =>
     }
     catch (error) {
       toast.error(String(error));
+    }
+  };
+
+export const fetchRoomDataById = (id: string): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      dispatch(setIsRoomDataLoaded(false));
+
+      const [
+        {data: offer},
+        {data: nearbyOffers},
+        {data: reviews},
+      ] = await Promise.all([
+        api.get(`${APIRoute.Hotels}/${id}`),
+        api.get(`${APIRoute.Hotels}/${id}/nearby`),
+        api.get(`${APIRoute.Comments}/${id}`),
+      ]);
+
+      const adaptedOffer = adaptDataToClient<ServerOffer, AppOffer>(offer);
+      const adaptedNearbyOffers = nearbyOffers.map(adaptDataToClient);
+      const adaptedReviews = reviews.map(adaptDataToClient);
+
+      dispatch(loadRoomDataById({
+        offer: adaptedOffer,
+        nearbyOffers: adaptedNearbyOffers,
+        reviews: adaptedReviews,
+      }));
+    }
+    catch (error) {
+      toast.error(String(error));
+    }
+    finally {
+      dispatch(setIsRoomDataLoaded(true));
     }
   };
 

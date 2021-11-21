@@ -1,9 +1,10 @@
 import BookmarkButton from './bookmark-button';
 import classNames from 'classnames';
+import { AppOffer } from '../../types/app-data';
 import { BookmarkButtonType, OfferType, StringFormat } from '../../const';
 import { calculateRating, formatString } from '../../utils';
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/hotel';
+
 
 const imageWidth = {
   [OfferType.Cities]: '260',
@@ -19,7 +20,7 @@ const imageHeight = {
 
 type OfferCardProps = {
   cardType: OfferType;
-  offer: Offer;
+  offer: AppOffer;
   onMouseOver?: () => void;
 }
 

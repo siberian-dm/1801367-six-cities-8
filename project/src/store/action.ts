@@ -1,24 +1,28 @@
-import { ActionType } from '../types/action';
+import { ActionType, RoomData } from '../types/action';
+import { AppOffer } from '../types/app-data';
 import { AppRoute, AuthStatus } from '../const';
 import { createAction } from '@reduxjs/toolkit';
-import { Offer } from '../types/hotel';
-import { Review } from '../types/comment';
 
 export const loadOffers = createAction(
   ActionType.loadOffers,
-  (offers: Offer[]) => ({
+  (offers: AppOffer[]) => ({
     payload: {
       offers,
     },
   }),
 );
 
-export const loadReviews = createAction(
-  ActionType.loadReviews,
-  (reviews: Review[]) => ({
-    payload: {
-      reviews,
-    },
+export const loadRoomDataById = createAction(
+  ActionType.loadRoomDataById,
+  (roomData: RoomData) => ({
+    payload: roomData,
+  }),
+);
+
+export const setIsRoomDataLoaded = createAction(
+  ActionType.setIsRoomDataLoaded,
+  (isLoading: boolean) => ({
+    payload: isLoading,
   }),
 );
 

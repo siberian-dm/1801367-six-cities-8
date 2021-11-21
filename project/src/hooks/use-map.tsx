@@ -1,4 +1,4 @@
-import { City } from '../types/hotel';
+import { City } from '../types/app-data';
 import { LayerGroup, Map, TileLayer } from 'leaflet';
 import { MutableRefObject, useEffect, useState } from 'react';
 

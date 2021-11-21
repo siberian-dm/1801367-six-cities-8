@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import OfferCard from './offer-card';
+import { AppOffer } from '../../types/app-data';
 import { noop } from 'lodash';
-import { Offer } from '../../types/hotel';
 import { OfferType } from '../../const';
 
 type OfferListProps = {
   type: OfferType;
-  onMouseOver?: (offerCard: Offer) => () => void;
-  offers: Offer[];
+  onMouseOver?: (offerCard: AppOffer) => () => void;
+  offers: AppOffer[];
 };
 
 function OfferList ({ type, onMouseOver, offers }: OfferListProps):JSX.Element {

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
+import { AppOffer } from './types/app-data';
 import { camelCase, capitalize } from 'lodash';
 import { DateFormat, SortingType, StringFormat } from './const';
-import { Offer } from './types/hotel';
 
 const MAX_STARS = 5;
 const MAX_RATING = 100;
@@ -19,7 +19,7 @@ export const formatString = (value: string, format: StringFormat): string => {
 
 export const formatDate = (date: string, format: DateFormat): string => dayjs(date).format(format);
 
-export const sortOffers = (offers: Offer[], sort: SortingType): Offer[] => {
+export const sortOffers = (offers: AppOffer[], sort: SortingType): AppOffer[] => {
   switch (sort) {
     case SortingType.Popular:
       return offers;
