@@ -1,8 +1,11 @@
 import { AppDataState } from '../../../types/store';
+import { CityName, SortingType } from '../../../const';
 import { createReducer } from '@reduxjs/toolkit';
-import { loadOffers } from '../../action';
+import { loadOffers, setActiveCity, setActiveSorting } from '../../action';
 
 const initialState: AppDataState = {
+  activeCity: CityName.Paris,
+  activeSorting: SortingType.Popular,
   offers: [],
   isDataLoaded: false,
 };
@@ -14,6 +17,12 @@ const appData = createReducer(initialState, (builder) => {
 
       state.offers = offers;
       state.isDataLoaded = true;
+    })
+    .addCase(setActiveCity, (state, action) => {
+      state.activeCity = action.payload;
+    })
+    .addCase(setActiveSorting, (state, action) => {
+      state.activeSorting = action.payload;
     });
 });
 

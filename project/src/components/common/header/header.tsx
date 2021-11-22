@@ -2,6 +2,7 @@ import Navigation from './navigation';
 import NavigationNotLogged from './navigation-not-logged';
 import { AuthStatus } from '../../../const';
 import { getAuthStatus, getUserEmail } from '../../../store/reducers/user-data/selectors';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 type HeaderProps = {
@@ -17,9 +18,9 @@ function Header({ isShowNavigation = true }: HeaderProps): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <a className="header__logo-link" href="main.html">
+            <Link className="header__logo-link" to="/">
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-            </a>
+            </Link>
           </div>
           {isShowNavigation && (
             (authStatus === AuthStatus.Auth && userEmail !== null)

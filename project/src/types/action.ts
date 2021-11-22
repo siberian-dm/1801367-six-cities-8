@@ -5,6 +5,8 @@ import { State } from './store';
 
 
 export enum ActionType {
+  SetActiveCity = 'app/setActiveCity',
+  SetActiveSorting = 'app/setActiveSorting',
   RedirectToRoute = 'app/redirectToRoute',
   LoadOffers = 'data/loadOffers',
   LoadOfferById = 'data/loadOfferById',

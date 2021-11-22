@@ -6,16 +6,18 @@ import NotFound from '../views/not-found/not-found';
 import PrivateRoute from './private-route';
 import Room from '../views/room/room';
 import { AppRoute } from '../../const';
-import { Redirect, Route, Router, Switch } from 'react-router-dom';
+import {
+  Redirect,
+  Route,
+  Router,
+  Switch
+} from 'react-router-dom';
 
 function App(): JSX.Element {
   return (
     <Router history={browserHistory}>
       <Switch>
         <Route path={AppRoute.Root} exact>
-          <Main/>
-        </Route>
-        <Route path={AppRoute.Offers} exact>
           <Main/>
         </Route>
         <Route path={AppRoute.Login} exact>

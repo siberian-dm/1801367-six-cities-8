@@ -1,23 +1,15 @@
 import Map from '../../common/map/map';
 import OfferList from '../../common/offer-list';
-import SortingForm from './sorting-form/sorting-form';
+import SortingForm from './sorting-form';
 import { AppOffer } from '../../../types/app-data';
-import {
-  CityName,
-  MapType,
-  OfferType,
-  SortingType
-} from '../../../const';
+import { getSortedOffersByCity } from '../../../store/reducers/app-data/selectors';
+import { MapType, OfferType } from '../../../const';
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-type OffersProps = {
-  city: CityName;
-  sorting: SortingType;
-  offers: AppOffer[];
-}
-
-function Offers({ city, sorting, offers }: OffersProps): JSX.Element {
+function Offers(): JSX.Element {
   const [ActiveOfferCard, setActiveOfferCard] = useState<AppOffer | undefined>();
+  const offers = useSelector(getSortedOffersByCity);
 
   const cityLocation = offers[0].city;
 
@@ -30,7 +22,7 @@ function Offers({ city, sorting, offers }: OffersProps): JSX.Element {
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{offers.length} places to stay in Amsterdam</b>
-        <SortingForm city={city} sorting={sorting}/>
+        <SortingForm/>
         <OfferList
           type={OfferType.Cities}
           onMouseOver={handleOfferCardHover}
@@ -41,7 +33,8 @@ function Offers({ city, sorting, offers }: OffersProps): JSX.Element {
         <Map
           mapType={MapType.CitiesMap}
           cityLocation={cityLocation}
-          points={offers} selectedPoint={ActiveOfferCard}
+          points={offers}
+          selectedPoint={ActiveOfferCard}
         />
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { AppOffer, AppReview } from './app-data';
-import { AuthStatus } from '../const';
+import { AuthStatus, CityName, SortingType } from '../const';
 import { RootState } from '../store/root-reducer';
 
 export enum DataType {
@@ -9,6 +9,8 @@ export enum DataType {
 }
 
 export interface AppDataState {
+  activeCity: CityName;
+  activeSorting: SortingType;
   offers: AppOffer[] | [];
   isDataLoaded: boolean;
 }

@@ -1,15 +1,13 @@
 import Loading from '../../common/loading/loading';
-import { CityName, StringFormat } from '../../../const';
 import { formatString } from '../../../utils';
-import { getIsDataLoaded } from '../../../store/reducers/app-data/selectors';
+import { getActiveCity, getIsDataLoaded } from '../../../store/reducers/app-data/selectors';
+import { StringFormat } from '../../../const';
 import { useSelector } from 'react-redux';
 
-type NoOffersProps = {
-  city: CityName;
-}
 
-function NoOffers({ city }: NoOffersProps): JSX.Element {
+function NoOffers(): JSX.Element {
   const isDataLoaded = useSelector(getIsDataLoaded);
+  const activeCity = useSelector(getActiveCity);
 
   return (
     <div className="cities__places-container cities__places-container--empty container">
@@ -19,7 +17,7 @@ function NoOffers({ city }: NoOffersProps): JSX.Element {
           <div className="cities__status-wrapper tabs__content">
             <b className="cities__status">No places to stay available</b>
             <p className="cities__status-description">
-                We could not find any property available at the moment in {formatString(city, StringFormat.Capitalize)}
+                We could not find any property available at the moment in {formatString(activeCity, StringFormat.Capitalize)}
             </p>
           </div>
           : <Loading/>}

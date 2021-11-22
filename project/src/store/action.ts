@@ -1,7 +1,26 @@
 import { ActionType } from '../types/action';
 import { AppOffer, AppReview } from '../types/app-data';
-import { AppRoute, AuthStatus } from '../const';
+import {
+  AppRoute,
+  AuthStatus,
+  CityName,
+  SortingType
+} from '../const';
 import { createAction } from '@reduxjs/toolkit';
+
+export const setActiveCity = createAction(
+  ActionType.SetActiveCity,
+  (city: CityName) => ({
+    payload: city,
+  }),
+);
+
+export const setActiveSorting = createAction(
+  ActionType.SetActiveSorting,
+  (sorting: SortingType) => ({
+    payload: sorting,
+  }),
+);
 
 export const loadOffers = createAction(
   ActionType.LoadOffers,
