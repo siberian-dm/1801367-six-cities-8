@@ -2,6 +2,7 @@ import { AppRoute } from '../../../const';
 import { Link } from 'react-router-dom';
 import { logoutAction } from '../../../store/api-action';
 import { useDispatch } from 'react-redux';
+import { MouseEvent } from 'react';
 
 type NavigationProps = {
   userEmail: string;
@@ -10,7 +11,8 @@ type NavigationProps = {
 function Navigation({ userEmail }: NavigationProps): JSX.Element {
   const dispatch = useDispatch();
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (evt: MouseEvent): void => {
+    evt.preventDefault();
     dispatch(logoutAction());
   };
 

@@ -58,6 +58,13 @@ export const loadReviewsById = createAction(
   }),
 );
 
+export const setIsDataLoaded = createAction(
+  ActionType.SetIsDataLoaded,
+  (isDataLoaded: boolean) => ({
+    payload: isDataLoaded,
+  }),
+);
+
 export const setIsRoomDataLoaded = createAction(
   ActionType.SetIsRoomDataLoaded,
   (isRoomDataLoaded: boolean) => ({

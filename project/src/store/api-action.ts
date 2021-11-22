@@ -11,6 +11,7 @@ import {
   redirectToRoute,
   requireLogout,
   setAuthStatus,
+  setIsDataLoaded,
   setIsPostingReview,
   setIsRoomDataLoaded,
   setUserEmail
@@ -32,6 +33,8 @@ type ReviewPost = {
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
+      dispatch(setIsDataLoaded(false));
+
       const { data } = await api.get(APIRoute.Hotels);
       const adaptedData = data.map(adaptDataToClient);
 
@@ -39,6 +42,9 @@ export const fetchOffersAction = (): ThunkActionResult =>
     }
     catch (error) {
       toast.error(String(error));
+    }
+    finally {
+      dispatch(setIsDataLoaded(true));
     }
   };
 

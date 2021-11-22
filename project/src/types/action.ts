@@ -12,12 +12,14 @@ export enum ActionType {
   LoadOfferById = 'data/loadOfferById',
   LoadNearbyOffersById = 'data/loadNearbyOffersById',
   LoadReviewsById = 'data/loadReviewsById',
+  SetIsDataLoaded = 'data/setIsDataLoaded',
   SetIsRoomDataLoaded = 'data/setIsRoomDataLoaded',
   SetIsPostingReview = 'data/setIsPostingReview',
   SetAuthStatus = 'user/setAuthStatus',
   SetUserEmail = 'user/setUserEmail',
   RequireLogout = 'user/requireLogout',
 }
+
 export interface RoomData {
   offer: AppOffer,
   nearbyOffers: AppOffer[],
