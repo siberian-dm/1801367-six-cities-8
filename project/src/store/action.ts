@@ -22,8 +22,8 @@ export const setActiveSorting = createAction(
   }),
 );
 
-export const loadOffers = createAction(
-  ActionType.LoadOffers,
+export const setOffers = createAction(
+  ActionType.SetOffers,
   (offers: AppOffer[]) => ({
     payload: {
       offers,
@@ -31,8 +31,8 @@ export const loadOffers = createAction(
   }),
 );
 
-export const loadOfferById = createAction(
-  ActionType.LoadOfferById,
+export const setOfferById = createAction(
+  ActionType.SetOfferById,
   (offer: AppOffer) => ({
     payload: {
       offer,
@@ -40,8 +40,8 @@ export const loadOfferById = createAction(
   }),
 );
 
-export const loadNearbyOffersById = createAction(
-  ActionType.LoadNearbyOffersById,
+export const setNearbyOffersById = createAction(
+  ActionType.SetNearbyOffersById,
   (offers: AppOffer[]) => ({
     payload: {
       offers,
@@ -49,8 +49,8 @@ export const loadNearbyOffersById = createAction(
   }),
 );
 
-export const loadReviewsById = createAction(
-  ActionType.LoadReviewsById,
+export const setReviewsById = createAction(
+  ActionType.SetReviewsById,
   (reviews: AppReview[]) => ({
     payload: {
       reviews,

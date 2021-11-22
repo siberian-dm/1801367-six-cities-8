@@ -3,7 +3,6 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
-  Offers = '/:city/offers/:sorting',
   NotFound = '/not_found',
 }
 
@@ -12,6 +11,7 @@ export enum APIRoute {
   Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
+  Favorite = '/favorite',
 }
 
 export enum AuthStatus {

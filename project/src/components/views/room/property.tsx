@@ -71,6 +71,7 @@ function Property(): JSX.Element {
                 {title}
               </h1>
               <BookmarkButton
+                offerId={id}
                 buttonType={BookmarkButtonType.Property}
                 isFavorite={isFavorite}
               />

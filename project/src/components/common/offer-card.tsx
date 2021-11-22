@@ -67,6 +67,7 @@ function OfferCard({ cardType, offer, onMouseOver }: OfferCardProps): JSX.Elemen
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <BookmarkButton
+            offerId={id}
             buttonType={BookmarkButtonType.PlaceCard}
             isFavorite={isFavorite}
           />

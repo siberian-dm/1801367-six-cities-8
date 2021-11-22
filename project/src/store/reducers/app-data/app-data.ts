@@ -1,7 +1,12 @@
 import { AppDataState } from '../../../types/store';
 import { CityName, SortingType } from '../../../const';
 import { createReducer } from '@reduxjs/toolkit';
-import { loadOffers, setActiveCity, setActiveSorting, setIsDataLoaded } from '../../action';
+import {
+  setActiveCity,
+  setActiveSorting,
+  setIsDataLoaded,
+  setOffers
+} from '../../action';
 
 const initialState: AppDataState = {
   activeCity: CityName.Paris,
@@ -12,7 +17,7 @@ const initialState: AppDataState = {
 
 const appData = createReducer(initialState, (builder) => {
   builder
-    .addCase(loadOffers, (state, action) => {
+    .addCase(setOffers, (state, action) => {
       const { offers } = action.payload;
 
       state.offers = offers;

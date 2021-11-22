@@ -4,16 +4,16 @@ import { AppOffer } from '../types/app-data';
 import { AuthInfo, ServerOffer } from '../types/server-data';
 import { dropToken, saveToken } from '../services/token';
 import {
-  loadNearbyOffersById,
-  loadOfferById,
-  loadOffers,
-  loadReviewsById,
   redirectToRoute,
   requireLogout,
   setAuthStatus,
   setIsDataLoaded,
   setIsPostingReview,
   setIsRoomDataLoaded,
+  setNearbyOffersById,
+  setOfferById,
+  setOffers,
+  setReviewsById,
   setUserEmail
 } from './action';
 import { ThunkActionResult } from '../types/action';
@@ -38,7 +38,7 @@ export const fetchOffersAction = (): ThunkActionResult =>
       const { data } = await api.get(APIRoute.Hotels);
       const adaptedData = data.map(adaptDataToClient);
 
-      dispatch(loadOffers(adaptedData));
+      dispatch(setOffers(adaptedData));
     }
     catch (error) {
       toast.error(String(error));
@@ -67,9 +67,9 @@ export const fetchRoomDataById = (id: number): ThunkActionResult =>
       const adaptedNearbyOffers = nearbyOffers.map(adaptDataToClient);
       const adaptedReviews = reviews.map(adaptDataToClient);
 
-      dispatch(loadOfferById(adaptedOffer));
-      dispatch(loadNearbyOffersById(adaptedNearbyOffers));
-      dispatch(loadReviewsById(adaptedReviews));
+      dispatch(setOfferById(adaptedOffer));
+      dispatch(setNearbyOffersById(adaptedNearbyOffers));
+      dispatch(setReviewsById(adaptedReviews));
     }
     catch (error) {
       toast.error(String(error));
@@ -86,7 +86,7 @@ export const postReviewAction = ({id, comment, rating}: ReviewPost): ThunkAction
       const { data } = await api.post(`${APIRoute.Comments}/${id}`, {comment, rating});
 
       const adaptedReviews = data.map(adaptDataToClient);
-      dispatch(loadReviewsById(adaptedReviews));
+      dispatch(setReviewsById(adaptedReviews));
     }
     catch (error) {
       toast.error(String(error));
@@ -124,4 +124,44 @@ export const logoutAction = (): ThunkActionResult =>
     api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireLogout());
+  };
+
+export const postIsFavoriteOfferAction = (id: number, status: number): ThunkActionResult =>
+  async (dispatch, getState, api) => {
+    try{
+      const { data } = await api.post<ServerOffer>(`${APIRoute.Favorite}/${id}/${status}`);
+
+      const adaptedOffer = adaptDataToClient<ServerOffer, AppOffer>(data);
+
+      const { offers } = getState()['APP'];
+
+      const offerIndex = offers.findIndex((offerItem) => offerItem.id === adaptedOffer.id);
+
+      if (offerIndex !== -1) {
+        dispatch(setOffers([
+          ...offers.slice(0, offerIndex),
+          adaptedOffer,
+          ...offers.slice(offerIndex + 1),
+        ]));
+      }
+
+      const { offerById, nearbyOffersById } = getState()['ROOM'];
+
+      if (offerById && offerById.id === adaptedOffer.id) {
+        dispatch(setOfferById(adaptedOffer));
+      }
+
+      const nearbyOfferIndex = nearbyOffersById.findIndex((offerItem) => offerItem.id === adaptedOffer.id);
+
+      if (nearbyOfferIndex !== -1) {
+        dispatch(setNearbyOffersById([
+          ...nearbyOffersById.slice(0, nearbyOfferIndex),
+          adaptedOffer,
+          ...nearbyOffersById.slice(nearbyOfferIndex + 1),
+        ]));
+      }
+    }
+    catch (error) {
+      toast.error(String(error));
+    }
   };

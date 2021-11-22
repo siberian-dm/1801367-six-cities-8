@@ -1,5 +1,9 @@
 import classNames from 'classnames';
-import { BookmarkButtonType } from '../../const';
+import { AppRoute, AuthStatus, BookmarkButtonType } from '../../const';
+import { getAuthStatus } from '../../store/reducers/user-data/selectors';
+import { postIsFavoriteOfferAction } from '../../store/api-action';
+import { redirectToRoute } from '../../store/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 const iconWidth = {
   [BookmarkButtonType.PlaceCard]: '18',
@@ -13,11 +17,14 @@ const iconHeight = {
 
 
 type BookmarkButtonProps = {
+  offerId: number;
   buttonType: BookmarkButtonType;
   isFavorite: boolean;
 }
 
-function BookmarkButton({buttonType, isFavorite}: BookmarkButtonProps): JSX.Element {
+function BookmarkButton({ offerId, buttonType, isFavorite }: BookmarkButtonProps): JSX.Element {
+  const authStatus = useSelector(getAuthStatus);
+
   const svgClass = classNames({
     [`${buttonType}__bookmark-icon`]: true,
   });
@@ -27,8 +34,23 @@ function BookmarkButton({buttonType, isFavorite}: BookmarkButtonProps): JSX.Elem
     [`${buttonType}__bookmark-button--active`]: isFavorite,
   });
 
+  const dispatch = useDispatch();
+
+  const handleBoookmarkButtonClick = (): void => {
+    if (authStatus === AuthStatus.Auth) {
+      dispatch(postIsFavoriteOfferAction(offerId, Number(!isFavorite)));
+      return;
+    }
+
+    dispatch(redirectToRoute(AppRoute.Login));
+  };
+
   return (
-    <button className={buttonClass} type="button">
+    <button
+      className={buttonClass}
+      type="button"
+      onClick={handleBoookmarkButtonClick}
+    >
       <svg
         className={svgClass}
         width={iconWidth[buttonType]}
