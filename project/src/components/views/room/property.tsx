@@ -1,11 +1,11 @@
 import BookmarkButton from '../../common/bookmark-button';
 import classNames from 'classnames';
+import Loading from '../../common/loading/loading';
 import Map from '../../common/map/map';
 import OfferList from '../../common/offer-list';
 import ReviewForm from './review-form';
 import ReviewItem from './review-item';
 import {
-  AppRoute,
   AuthStatus,
   BookmarkButtonType,
   MapType,
@@ -14,8 +14,12 @@ import {
 } from '../../../const';
 import { calculateRating, formatString } from '../../../utils';
 import { getAuthStatus } from '../../../store/reducers/user-data/selectors';
-import { getNearbyOffersById, getOfferById, getReviewsById } from '../../../store/reducers/room-data/selectors';
-import { Redirect } from 'react-router';
+import {
+  getIsRoomDataLoading,
+  getNearbyOffersById,
+  getOfferById,
+  getReviewsById
+} from '../../../store/reducers/room-data/selectors';
 import { useSelector } from 'react-redux';
 
 function Property(): JSX.Element {
@@ -23,9 +27,10 @@ function Property(): JSX.Element {
   const reviews = useSelector(getReviewsById);
   const nearbyOffers = useSelector(getNearbyOffersById);
   const authStatus = useSelector(getAuthStatus);
+  const isRoomDataLoading = useSelector(getIsRoomDataLoading);
 
-  if (!offer) {
-    return <Redirect to={AppRoute.NotFound}/>;
+  if (!offer || isRoomDataLoading) {
+    return <Loading/>;
   }
 
   const {
