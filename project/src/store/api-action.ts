@@ -148,7 +148,7 @@ export const logoutAction = (): ThunkActionResult =>
 
 export const postIsFavoriteOfferAction = (id: number, status: number): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
-    try{
+    try {
       const { data } = await api.post<ServerOffer>(`${APIRoute.Favorite}/${id}/${status}`);
 
       const adaptedOffer = adaptDataToClient<ServerOffer, AppOffer>(data);

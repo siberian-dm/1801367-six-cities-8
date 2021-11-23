@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { AppOffer } from './types/app-data';
-import { camelCase, capitalize } from 'lodash';
+import { camelCase, capitalize, random } from 'lodash';
 import { DateFormat, SortingType, StringFormat } from './const';
 
 const MAX_STARS = 5;
@@ -32,7 +32,8 @@ export const sortOffers = (offers: AppOffer[], sort: SortingType): AppOffer[] =>
   }
 };
 
-export const isValueInEnum = <T>(
-  value: string,
-  enumObject: { [key: string]: T },
-): boolean => Object.values(enumObject).includes((value as unknown) as T);
+export const getRandomArrayItem = <T>(array: T[]): T => {
+  const randomIndex = random(array.length - 1);
+
+  return array[randomIndex];
+};
