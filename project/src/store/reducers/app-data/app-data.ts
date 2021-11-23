@@ -4,7 +4,9 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   setActiveCity,
   setActiveSorting,
-  setIsDataLoaded,
+  setFavorites,
+  setIsFavoritesLoading,
+  setIsOffersLoading,
   setOffers
 } from '../../action';
 
@@ -12,7 +14,9 @@ const initialState: AppDataState = {
   activeCity: CityName.Paris,
   activeSorting: SortingType.Popular,
   offers: [],
-  isDataLoaded: false,
+  favorites: [],
+  isOffersLoading: false,
+  isFavoritesLoading: false,
 };
 
 const appData = createReducer(initialState, (builder) => {
@@ -22,8 +26,16 @@ const appData = createReducer(initialState, (builder) => {
 
       state.offers = offers;
     })
-    .addCase(setIsDataLoaded, (state, action) => {
-      state.isDataLoaded = action.payload;
+    .addCase(setFavorites, (state, action) => {
+      const { offers } = action.payload;
+
+      state.favorites = offers;
+    })
+    .addCase(setIsOffersLoading, (state, action) => {
+      state.isOffersLoading = action.payload;
+    })
+    .addCase(setIsFavoritesLoading, (state, action) => {
+      state.isFavoritesLoading = action.payload;
     })
     .addCase(setActiveCity, (state, action) => {
       state.activeCity = action.payload;

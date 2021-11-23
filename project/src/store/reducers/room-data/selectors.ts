@@ -7,6 +7,6 @@ export const getNearbyOffersById = (state: State): AppOffer[] | []=> state[DataT
 
 export const getReviewsById = (state: State): AppReview[] | []=> state[DataType.Room].reviewsById;
 
-export const getIsRoomDataLoaded = (state: State): boolean => state[DataType.Room].isRoomDataLoaded;
+export const getIsRoomDataLoading = (state: State): boolean => state[DataType.Room].isRoomDataLoading;
 
 export const getIsPostingReview = (state: State): boolean => state[DataType.Room].isPostingReview;

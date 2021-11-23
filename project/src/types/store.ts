@@ -12,7 +12,9 @@ export interface AppDataState {
   activeCity: CityName;
   activeSorting: SortingType;
   offers: AppOffer[] | [];
-  isDataLoaded: boolean;
+  favorites: AppOffer[] | [];
+  isOffersLoading: boolean;
+  isFavoritesLoading: boolean;
 }
 
 export interface UserDataState {
@@ -24,7 +26,7 @@ export interface RoomDataState {
   offerById: AppOffer | null;
   nearbyOffersById: AppOffer[] | [];
   reviewsById: AppReview[] | [];
-  isRoomDataLoaded: boolean;
+  isRoomDataLoading: boolean;
   isPostingReview: boolean;
 }
 

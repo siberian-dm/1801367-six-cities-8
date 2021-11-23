@@ -31,6 +31,15 @@ export const setOffers = createAction(
   }),
 );
 
+export const setFavorites = createAction(
+  ActionType.SetFavorites,
+  (offers: AppOffer[]) => ({
+    payload: {
+      offers,
+    },
+  }),
+);
+
 export const setOfferById = createAction(
   ActionType.SetOfferById,
   (offer: AppOffer) => ({
@@ -58,15 +67,22 @@ export const setReviewsById = createAction(
   }),
 );
 
-export const setIsDataLoaded = createAction(
-  ActionType.SetIsDataLoaded,
-  (isDataLoaded: boolean) => ({
-    payload: isDataLoaded,
+export const setIsOffersLoading = createAction(
+  ActionType.SetIsOffersLoading,
+  (isDataLoading: boolean) => ({
+    payload: isDataLoading,
   }),
 );
 
-export const setIsRoomDataLoaded = createAction(
-  ActionType.SetIsRoomDataLoaded,
+export const setIsFavoritesLoading = createAction(
+  ActionType.SetIsFavoritesLoading,
+  (isDataLoading: boolean) => ({
+    payload: isDataLoading,
+  }),
+);
+
+export const setIsRoomDataLoading = createAction(
+  ActionType.SetIsRoomDataLoading,
   (isRoomDataLoaded: boolean) => ({
     payload: isRoomDataLoaded,
   }),

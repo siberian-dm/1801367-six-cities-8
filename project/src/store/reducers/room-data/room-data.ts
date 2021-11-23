@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { RoomDataState } from '../../../types/store';
 import {
   setIsPostingReview,
-  setIsRoomDataLoaded,
+  setIsRoomDataLoading,
   setNearbyOffersById,
   setOfferById,
   setReviewsById
@@ -12,7 +12,7 @@ const initialState: RoomDataState = {
   offerById: null,
   nearbyOffersById: [],
   reviewsById: [],
-  isRoomDataLoaded: false,
+  isRoomDataLoading: false,
   isPostingReview: false,
 };
 
@@ -30,8 +30,8 @@ const roomData = createReducer(initialState, (builder) => {
       const { reviews } = action.payload;
       state.reviewsById = reviews;
     })
-    .addCase(setIsRoomDataLoaded, (state, action) => {
-      state.isRoomDataLoaded = action.payload;
+    .addCase(setIsRoomDataLoading, (state, action) => {
+      state.isRoomDataLoading = action.payload;
     })
     .addCase(setIsPostingReview, (state, action) => {
       state.isPostingReview = action.payload;
